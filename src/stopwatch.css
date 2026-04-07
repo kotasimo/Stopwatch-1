@@ -1,6 +1,7 @@
 .name {
     height: 30px;
-    margin: 1px;
+    margin: 5px;
+    text-align: center;
 }
 
 .stopwatch-card {
@@ -19,8 +20,7 @@
 
 .stopwatch-display-panel {
   margin-top: 4px;
-  height: ;
-  flex: 1;
+  flex: 0.5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

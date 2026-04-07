@@ -30,16 +30,16 @@ export const StopwatchCard = () => {
   const [name, setName] = useState("stopwatchName")
 
   const { minutes, seconds, milliseconds } = formatTime(elapsedTime);
-  
+
   return (
-    <div className="aspect-square rounded-2xl border border-white/10 bg-white/7 p-3">
-      <div className="grid h-full grid-rows-[2fr_1fr] gap-3">
-          <input
+    <div className="stopwatch-card">
+      <div className="stopwatch-card-inner">
+        <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="name"
         />
-        <div className="flex h-full flex-col justify-between rounded-2xl bg-linear-to-b from-white/10 to-white/5 p-4 ring-1 ring-white/10">
+        <div className="stopwatch-display-panel">
           <LapLatest laps={laps} formatTimeText={formatTimeText} />
           <TimeDisplay
             minutes={minutes}
@@ -47,17 +47,18 @@ export const StopwatchCard = () => {
             milliseconds={milliseconds}
           />
         </div>
-
-        <div className="flex items-center">
+        <div className="stopwatch-controls-row">
           <Controls
             statusConf={status}
             onStart={start}
             onStop={stop}
             onReset={reset}
             onLap={lap}
+            onHistory={history}
           />
         </div>
       </div>
+      
     </div>
   );
 };
