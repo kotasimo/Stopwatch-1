@@ -2,6 +2,8 @@ import { Controls } from "./Controls";
 import { TimeDisplay } from "./TimeDisplay";
 import { LapLatest } from "./LapLatest";
 import { useStopwatch } from "./useStopwatch";
+import { useState } from "react";
+import "./stopwatch.css"
 
 export const StopwatchCard = () => {
   const { status, laps, elapsedTime, start, stop, reset, lap } = useStopwatch();
@@ -25,10 +27,18 @@ export const StopwatchCard = () => {
     return `${minutes}'${seconds}"${milliseconds}`;
   };
 
+  const [name, setName] = useState("stopwatchName")
+
   const { minutes, seconds, milliseconds } = formatTime(elapsedTime);
+  
   return (
     <div className="aspect-square rounded-2xl border border-white/10 bg-white/7 p-3">
       <div className="grid h-full grid-rows-[2fr_1fr] gap-3">
+          <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="name"
+        />
         <div className="flex h-full flex-col justify-between rounded-2xl bg-linear-to-b from-white/10 to-white/5 p-4 ring-1 ring-white/10">
           <LapLatest laps={laps} formatTimeText={formatTimeText} />
           <TimeDisplay
