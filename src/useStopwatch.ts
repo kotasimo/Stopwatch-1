@@ -5,6 +5,7 @@ export const useStopwatch = () => {
   const [status, setStatus] = useState<Status>("idle");
   const [laps, setLaps] = useState<Lap[]>([]);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [showLaps, setShowLaps] = useState(false);
 
   const startTimeRef = useRef<number>(0);
   const intervalRef = useRef<number | null>(null);
@@ -61,5 +62,11 @@ export const useStopwatch = () => {
     });
   };
 
-  return { status, laps, elapsedTime, start, stop, reset, lap };
+  const lapHistory = () => {
+    setShowLaps((prev) => !prev);
+
+    console.log(showLaps)
+  };
+
+  return { status, laps, elapsedTime, showLaps, start, stop, reset, lap, lapHistory};
 };
