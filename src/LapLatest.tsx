@@ -3,9 +3,10 @@ import type { Lap } from "./type";
 type Props = {
   laps: Lap[];
   formatTimeText: (ms: number) => string;
+  lapHistory: () => void;
 };
 
-export const LapLatest = ({ laps, formatTimeText }: Props) => {
+export const LapLatest = ({ laps, formatTimeText, lapHistory }: Props) => {
   const latest = laps.at(-1);
 
   const lapNumber = latest?.lap ?? 0;
@@ -27,11 +28,11 @@ export const LapLatest = ({ laps, formatTimeText }: Props) => {
           {formatTimeText(totalTime)}
         </div>
 
-        <div className="text-[20px] uppercase tracking-wide text-slate-300">
+        <div className="text-[20px] uppercase tracking-wide text-slate-300" onClick={lapHistory}>
           LAP
         </div>
 
-        <div className="text-right font-mono tabular-nums text-3xl text-slate-100">
+        <div className="text-right font-mono tabular-nums text-3xl text-slate-100" onClick={lapHistory}>
           {formatTimeText(lapTime)}
         </div>
       </div>

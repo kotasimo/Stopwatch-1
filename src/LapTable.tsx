@@ -7,18 +7,29 @@ type Props = {
 
 export const LapTable = ({ laps, formatTimeText }: Props) => {
   return (
-    <tbody className="divide-y divide-white/10">
-      {[...laps].reverse().map((lap, index) => (
-        <tr className={index ==0 ? "bg-white/7" : "bg-white/7"} key={lap.lap}>
-          <td className="px-6 py-3 text-left text-slate-200">{lap.lap}</td>
-          <td className="px-6 py-3 text-right font-mono tabular-nums text-slate-100">
-            {formatTimeText(lap.lapTime)}
-          </td>
-          <td className="px-6 py-3 text-right font-mono tabular-nums text-slate-100">
-            {formatTimeText(lap.totalTime)}
-          </td>
-        </tr>
-      ))}
-    </tbody>
+    <div className="max-h-88 overflow-auto border-t border-white/10">
+      <table className="w-full text-sm">
+        <thead className="sticky top-0 z-10 bg-slate-950/70">
+          <tr className="text-slate-300">
+            <th className="px-1 py-3 text-center font-medium">Lap</th>
+            <th className="px-1 py-3 text-center font-medium">Lap Time</th>
+            <th className="px-1 py-3 text-center font-medium">Total</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-white/10">
+          {[...laps].map((lap, index) => (
+            <tr className={index == 0 ? "bg-white/7" : "bg-white/7"} key={lap.lap}>
+              <td className="px-6 py-3 text-center text-slate-200">{lap.lap}</td>
+              <td className="px-6 py-3 text-center font-mono tabular-nums text-slate-100">
+                {formatTimeText(lap.lapTime)}
+              </td>
+              <td className="px-6 py-3 text-center font-mono tabular-nums text-slate-100">
+                {formatTimeText(lap.totalTime)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };

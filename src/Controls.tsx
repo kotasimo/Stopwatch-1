@@ -6,7 +6,6 @@ type Props = {
   onStop: () => void;
   onReset: () => void;
   onLap: () => void;
-  onHistory: () => void;
 };
 
 export const Controls = ({
@@ -15,7 +14,6 @@ export const Controls = ({
   onStop,
   onReset,
   onLap,
-  onHistory,
 }: Props) => {
   // ボタン onclickとlabel
   const mainLabel =
@@ -27,7 +25,7 @@ export const Controls = ({
 
   const mainHandler = statusConf === "running" ? onStop : onStart;
 
-  
+
 
   return (
     <>
@@ -54,13 +52,6 @@ export const Controls = ({
           onClick={onReset}
         >
           リセット
-        </button>
-        <button
-        type="button"
-        className="inline-flex items-center justify-center rounded-xl bg-white/7 px-4 py-3 text-sm font-semibold text-slate-100 ring-1 ring-inset ring-white/10 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300/60 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40"
-        onClick={onHistory}
-        >
-          履歴
         </button>
       </div>
     </>
