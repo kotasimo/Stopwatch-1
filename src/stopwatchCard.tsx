@@ -29,7 +29,7 @@ export const StopwatchCard = () => {
     return `${minutes}'${seconds}"${milliseconds}`;
   };
 
-  const [name, setName] = useState("stopwatchName")
+  const [name, setName] = useState("")
 
   const { minutes, seconds, milliseconds } = formatTime(elapsedTime);
 
@@ -40,6 +40,7 @@ export const StopwatchCard = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="name"
+          placeholder="stopwatchName"
         />
         <div className="stopwatch-display-panel">
           <LapLatest laps={laps} formatTimeText={formatTimeText} lapHistory={lapHistory} />
@@ -62,7 +63,7 @@ export const StopwatchCard = () => {
       {showLaps && (
         <div className="lap-modal-overlay" onClick={lapHistory}>
           <section className="lap-modal-content" onClick={(e) => e.stopPropagation()}>
-            <LapTable laps={laps} formatTimeText={formatTimeText} />
+            <LapTable laps={laps} formatTimeText={formatTimeText} name={name} />
           </section>
         </div>
       )}

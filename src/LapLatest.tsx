@@ -28,11 +28,11 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory }: Props) => {
           {formatTimeText(totalTime)}
         </div>
 
-        <div className="text-[20px] uppercase tracking-wide text-slate-300" onClick={lapHistory}>
+        <div className="lap-label text-[20px] uppercase tracking-wide text-slate-300" onClick={lapHistory}>
           LAP
         </div>
 
-        <div className="text-right font-mono tabular-nums text-3xl text-slate-100" onClick={lapHistory}>
+        <div className="lap-label text-right font-mono tabular-nums text-3xl text-slate-100" onClick={lapHistory}>
           {formatTimeText(lapTime)}
         </div>
       </div>
