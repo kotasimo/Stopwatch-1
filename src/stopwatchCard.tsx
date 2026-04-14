@@ -3,22 +3,29 @@ import { TimeDisplay } from "./TimeDisplay";
 import { LapLatest } from "./LapLatest";
 import { LapTable } from "./LapTable";
 import { useStopwatch } from "./useStopwatch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./stopwatch.css";
+
+type Lap = {
+  lap: number;
+  lapTime: number;
+  totalTime: number;
+};
+
+type StopwatchHistory = {
+  stopwatchId: number;
+  name: string;
+  laps: Lap[];
+};
 
 type StopwatchCardProps = {
   stopwatchId: number;
-  onAddLap: (lap: {
-    stopwatchId: number;
-    lapTime: number;
-    totalTime: number;
-    name: string;
-  }) => void;
+  onUpdateHistory: (history: StopwatchHistory) => void;
 };
 
 export const StopwatchCard = ({
   stopwatchId,
-  onAddLap,
+  onUpdateHistory,
 }: StopwatchCardProps) => {
   const {
     status,
@@ -55,22 +62,13 @@ export const StopwatchCard = ({
 
   const { minutes, seconds, milliseconds } = formatTime(elapsedTime);
 
-  const handleLap = () => {
-    const previousTotal =
-      laps.length > 0 ? laps[laps.length - 1].totalTime : 0;
-
-    const currentTotal = elapsedTime;
-    const currentLapTime = currentTotal - previousTotal;
-
-    lap();
-
-    onAddLap({
+  useEffect(() => {
+    onUpdateHistory({
       stopwatchId,
-      lapTime: currentLapTime,
-      totalTime: currentTotal,
       name,
+      laps,
     });
-  };
+  }, [stopwatchId, name, laps, onUpdateHistory]);
 
   return (
     <div className="stopwatch-card">
@@ -102,7 +100,7 @@ export const StopwatchCard = ({
             onStart={start}
             onStop={stop}
             onReset={reset}
-            onLap={handleLap}
+            onLap={lap}
           />
         </div>
       </div>
