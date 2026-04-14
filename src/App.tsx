@@ -71,8 +71,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-950 via-slate-950 to-slate-900 text-slate-100">
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="flex gap-4">
-          <div className="grid grid-cols-3 gap-4 flex-1">
+        <div className="flex flex-col xl:flex-row gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1">
             {stopwatches.map((sw) => (
               <StopwatchCard
                 key={sw.id}
@@ -112,7 +112,7 @@ export default function App() {
                 <div className="mb-6 flex items-center justify-between">
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {histories.length === 0 ? (
                     <div className="rounded-2xl bg-slate-800 p-4 text-slate-300">
                       まだ履歴はありません
