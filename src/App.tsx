@@ -118,14 +118,14 @@ export default function App() {
                       まだ履歴はありません
                     </div>
                   ) : (
-                    histories.map((history) => (
+                    histories.map((history, index) => (
                       <div
                         key={history.stopwatchId}
                         className="rounded-2xl bg-slate-800 p-4 shadow"
                       >
                         <div className="mb-4 flex items-center gap-3">
                           <div className="text-sm text-slate-400">
-                            {history.stopwatchId}
+                             {index + 1}
                           </div>
                           <div className="text-lg font-bold">
                             {history.name || "stopwatchName"}
