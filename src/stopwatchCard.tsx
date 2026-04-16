@@ -2,8 +2,6 @@ import { Controls } from "./Controls";
 import { TimeDisplay } from "./TimeDisplay";
 import { LapLatest } from "./LapLatest";
 import { LapTable } from "./LapTable";
-import { useStopwatch } from "./useStopwatch";
-import { useEffect, useState } from "react";
 import "./stopwatch.css";
 
 type Lap = {
@@ -12,35 +10,49 @@ type Lap = {
   totalTime: number;
 };
 
-type StopwatchHistory = {
-  stopwatchId: number;
-  name: string;
-  laps: Lap[];
-};
-
 type StopwatchCardProps = {
   stopwatchId: number;
-  onUpdateHistory: (history: StopwatchHistory) => void;
+  name: string;
+  elapsedTime: number;
+  status: "idle" | "running" | "stopped";
+  laps: Lap[];
+  showLaps: boolean;
+  onChangeName: (id: number, name: string) => void;
+  onStart: (id: number) => void;
+  onStop: (id: number) => void;
+  onReset: (id: number) => void;
+  onLap: (id: number) => void;
+  onToggleLapHistory: (id: number) => void;
+  index: number;
+  onDuplicate: (id: number) => void;
+  onRemove: (id: number) => void;
+  onDragStart: (id: number) => void;
+  onDragEnter: (id: number) => void;
+  onDragEnd: () => void;
+  isDragging: boolean;
 };
 
 export const StopwatchCard = ({
   stopwatchId,
-  onUpdateHistory,
+  name,
+  elapsedTime,
+  status,
+  laps,
+  showLaps,
+  onChangeName,
+  onStart,
+  onStop,
+  onReset,
+  onLap,
+  onToggleLapHistory,
+  index,
+  onDuplicate,
+  onRemove,
+  onDragStart,
+  onDragEnter,
+  onDragEnd,
+  isDragging,
 }: StopwatchCardProps) => {
-  const {
-    status,
-    laps,
-    elapsedTime,
-    showLaps,
-    start,
-    stop,
-    reset,
-    lap,
-    lapHistory,
-  } = useStopwatch();
-
-  const [name, setName] = useState("");
-
   const formatTime = (ms: number) => {
     const minutes = Math.floor(ms / 1000 / 60)
       .toString()
@@ -62,29 +74,49 @@ export const StopwatchCard = ({
 
   const { minutes, seconds, milliseconds } = formatTime(elapsedTime);
 
-  useEffect(() => {
-    onUpdateHistory({
-      stopwatchId,
-      name,
-      laps,
-    });
-  }, [stopwatchId, name, laps, onUpdateHistory]);
-
   return (
-    <div className="stopwatch-card">
+    <div
+      className={`stopwatch-card ${isDragging ? "dragging" : ""}`}
+      draggable
+      onDragStart={() => onDragStart(stopwatchId)}
+      onDragEnter={() => onDragEnter(stopwatchId)}
+      onDragOver={(e) => e.preventDefault()}
+      onDragEnd={onDragEnd}
+    >
       <div className="stopwatch-card-inner">
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="name"
-          placeholder="stopwatchName"
-        />
+        <div className="flex items-center gap-1 mb-1">
+          {/* 左：番号 */}
+          <div className="text-sm text-slate-400 w-6 text-center">{index}</div>
+
+          {/* 中央：input */}
+          <input
+            value={name}
+            onChange={(e) => onChangeName(stopwatchId, e.target.value)}
+            className="flex-1 name"
+            placeholder="stopwatchName"
+          />
+
+          {/* 右：copyボタン */}
+          <button
+            onClick={() => onDuplicate(stopwatchId)}
+            className="text-xs px-2 py-1 rounded bg-blue-500/70 hover:bg-slate-600"
+          >
+            ＋
+          </button>
+
+          <button
+            onClick={() => onRemove(stopwatchId)}
+            className="text-xs px-2 py-1 rounded bg-red-500/70 hover:bg-red-500"
+          >
+            ✕
+          </button>
+        </div>
 
         <div className="stopwatch-display-panel">
           <LapLatest
             laps={laps}
             formatTimeText={formatTimeText}
-            lapHistory={lapHistory}
+            lapHistory={() => onToggleLapHistory(stopwatchId)}
           />
 
           <TimeDisplay
@@ -97,16 +129,19 @@ export const StopwatchCard = ({
         <div className="stopwatch-controls-row">
           <Controls
             statusConf={status}
-            onStart={start}
-            onStop={stop}
-            onReset={reset}
-            onLap={lap}
+            onStart={() => onStart(stopwatchId)}
+            onStop={() => onStop(stopwatchId)}
+            onReset={() => onReset(stopwatchId)}
+            onLap={() => onLap(stopwatchId)}
           />
         </div>
       </div>
 
       {showLaps && (
-        <div className="lap-modal-overlay" onClick={lapHistory}>
+        <div
+          className="lap-modal-overlay"
+          onClick={() => onToggleLapHistory(stopwatchId)}
+        >
           <section
             className="lap-modal-content"
             onClick={(e) => e.stopPropagation()}
