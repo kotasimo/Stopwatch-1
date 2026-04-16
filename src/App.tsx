@@ -106,11 +106,16 @@ export default function App() {
           </div>
         </div>
         {showHistory && (
-          <div className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100 overflow-y-auto" onClick={() => setShowHistory(false)}>
+          <div
+            className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100 overflow-y-auto"
+            onClick={() => setShowHistory(false)}
+          >
             <div className="flex justify-center pt-10">
-              <div className="w-full max-w-7xl px-4" onClick={(e) => e.stopPropagation()}>
-                <div className="mb-6 flex items-center justify-between">
-                </div>
+              <div
+                className="w-full max-w-7xl px-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="mb-6 flex items-center justify-between"></div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {histories.length === 0 ? (
@@ -125,7 +130,7 @@ export default function App() {
                       >
                         <div className="mb-4 flex items-center gap-3">
                           <div className="text-sm text-slate-400">
-                             {index + 1}
+                            {index + 1}
                           </div>
                           <div className="text-lg font-bold">
                             {history.name || "stopwatchName"}
