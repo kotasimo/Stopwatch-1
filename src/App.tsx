@@ -45,7 +45,7 @@ export default function App() {
   ]);
 
   const [showHistory, setShowHistory] = useState(false);
-  const [histories, setHistories] = useState<StopwatchHistory[]>([]);
+  // const [histories, setHistories] = useState<StopwatchHistory[]>([]);
   const [draggingId, setDraggingId] = useState<number | null>(null);
   const [showInfo, setShowInfo] = useState(false);
 
@@ -171,21 +171,21 @@ export default function App() {
     return `${minutes}'${seconds}"${milliseconds}`;
   };
 
-  const handleUpdateHistory = useCallback((history: StopwatchHistory) => {
-    setHistories((prev) => {
-      const existingIndex = prev.findIndex(
-        (item) => item.stopwatchId === history.stopwatchId,
-      );
+  // const handleUpdateHistory = useCallback((history: StopwatchHistory) => {
+  //   setHistories((prev) => {
+  //     const existingIndex = prev.findIndex(
+  //       (item) => item.stopwatchId === history.stopwatchId,
+  //     );
 
-      if (existingIndex === -1) {
-        return [...prev, history];
-      }
+  //     if (existingIndex === -1) {
+  //       return [...prev, history];
+  //     }
 
-      const updated = [...prev];
-      updated[existingIndex] = history;
-      return updated;
-    });
-  }, []);
+  //     const updated = [...prev];
+  //     updated[existingIndex] = history;
+  //     return updated;
+  //   });
+  // }, []);
 
   const duplicateStopwatch = (id: number) => {
     setStopwatches((prev) => {
