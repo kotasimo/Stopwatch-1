@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StopwatchCard } from "./stopwatchCard";
 import { LapTable } from "./LapTable";
 
@@ -8,6 +8,16 @@ type Lap = {
   totalTime: number;
 };
 
+type StopwatchItem = {
+  id: number;
+  name: string;
+  elapsedTime: number;
+  status: "idle" | "running" | "stopped";
+  laps: Lap[];
+  showLaps: boolean;
+  startedAt: number | null;
+};
+
 type StopwatchHistory = {
   stopwatchId: number;
   name: string;
@@ -15,21 +25,130 @@ type StopwatchHistory = {
 };
 
 export default function App() {
-  const [stopwatches, setStopwatches] = useState([
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
+  const createStopwatch = (id: number): StopwatchItem => ({
+    id,
+    name: "",
+    elapsedTime: 0,
+    status: "idle",
+    laps: [],
+    showLaps: false,
+    startedAt: null,
+  });
+
+  const [stopwatches, setStopwatches] = useState<StopwatchItem[]>([
+    createStopwatch(1),
+    createStopwatch(2),
+    createStopwatch(3),
+    createStopwatch(4),
+    createStopwatch(5),
+    createStopwatch(6),
   ]);
 
   const [showHistory, setShowHistory] = useState(false);
   const [histories, setHistories] = useState<StopwatchHistory[]>([]);
+  const [draggingId, setDraggingId] = useState<number | null>(null);
+  const [showInfo, setShowInfo] = useState(false);
 
   const addStopwatch = () => {
-    setStopwatches((prev) => [...prev, { id: Date.now() }]);
+    const newId = Date.now();
+    setStopwatches((prev) => [...prev, createStopwatch(newId)]);
   };
+
+  const updateStopwatch = (
+    id: number,
+    updater: (sw: StopwatchItem) => StopwatchItem,
+  ) => {
+    setStopwatches((prev) =>
+      prev.map((sw) => (sw.id === id ? updater(sw) : sw)),
+    );
+  };
+
+  const changeName = (id: number, name: string) => {
+    updateStopwatch(id, (sw) => ({
+      ...sw,
+      name,
+    }));
+  };
+
+  const startStopwatch = (id: number) => {
+    updateStopwatch(id, (sw) => {
+      if (sw.status === "running") return sw;
+
+      return {
+        ...sw,
+        status: "running",
+        startedAt: Date.now() - sw.elapsedTime,
+      };
+    });
+  };
+
+  const stopStopwatch = (id: number) => {
+    updateStopwatch(id, (sw) => {
+      if (sw.status !== "running") return sw;
+
+      return {
+        ...sw,
+        status: "stopped",
+        startedAt: null,
+      };
+    });
+  };
+
+  const resetStopwatch = (id: number) => {
+    updateStopwatch(id, (sw) => ({
+      ...sw,
+      status: "idle",
+      elapsedTime: 0,
+      laps: [],
+      showLaps: false,
+      startedAt: null,
+    }));
+  };
+
+  const lapStopwatch = (id: number) => {
+    updateStopwatch(id, (sw) => {
+      if (sw.status !== "running") return sw;
+
+      const totalTime = sw.elapsedTime;
+      const previousTotal =
+        sw.laps.length > 0 ? sw.laps[sw.laps.length - 1].totalTime : 0;
+
+      const newLap: Lap = {
+        lap: sw.laps.length + 1,
+        lapTime: totalTime - previousTotal,
+        totalTime,
+      };
+
+      return {
+        ...sw,
+        laps: [...sw.laps, newLap],
+      };
+    });
+  };
+
+  const toggleLapHistory = (id: number) => {
+    updateStopwatch(id, (sw) => ({
+      ...sw,
+      showLaps: !sw.showLaps,
+    }));
+  };
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setStopwatches((prev) =>
+        prev.map((sw) => {
+          if (sw.status !== "running" || sw.startedAt === null) return sw;
+
+          return {
+            ...sw,
+            elapsedTime: Date.now() - sw.startedAt,
+          };
+        }),
+      );
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const removeStopwatch = () => {
     setStopwatches((prev) => {
@@ -55,7 +174,7 @@ export default function App() {
   const handleUpdateHistory = useCallback((history: StopwatchHistory) => {
     setHistories((prev) => {
       const existingIndex = prev.findIndex(
-        (item) => item.stopwatchId === history.stopwatchId
+        (item) => item.stopwatchId === history.stopwatchId,
       );
 
       if (existingIndex === -1) {
@@ -68,16 +187,78 @@ export default function App() {
     });
   }, []);
 
+  const duplicateStopwatch = (id: number) => {
+    setStopwatches((prev) => {
+      const target = prev.find((sw) => sw.id === id);
+      if (!target) return prev;
+
+      const newId = Date.now();
+
+      const duplicated: StopwatchItem = {
+        ...target,
+        id: newId,
+        name: target.name ? `${target.name} copy` : "",
+        laps: [...target.laps],
+        startedAt:
+          target.status === "running" ? Date.now() - target.elapsedTime : null,
+      };
+
+      return [...prev, duplicated];
+    });
+  };
+
+  const removeStopwatchById = (id: number) => {
+    setStopwatches((prev) => prev.filter((sw) => sw.id !== id));
+  };
+
+  const reorderStopwatch = (dragId: number, hoverId: number) => {
+    setStopwatches((prev) => {
+      const dragIndex = prev.findIndex((sw) => sw.id === dragId);
+      const hoverIndex = prev.findIndex((sw) => sw.id === hoverId);
+
+      if (dragIndex === -1 || hoverIndex === -1 || dragIndex === hoverIndex) {
+        return prev;
+      }
+
+      const updated = [...prev];
+      const [draggedItem] = updated.splice(dragIndex, 1);
+      updated.splice(hoverIndex, 0, draggedItem);
+
+      return updated;
+    });
+  };
+
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-950 via-slate-950 to-slate-900 text-slate-100">
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col xl:flex-row gap-4">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1">
-            {stopwatches.map((sw) => (
+            {stopwatches.map((sw, index) => (
               <StopwatchCard
                 key={sw.id}
                 stopwatchId={sw.id}
-                onUpdateHistory={handleUpdateHistory}
+                name={sw.name}
+                elapsedTime={sw.elapsedTime}
+                status={sw.status}
+                laps={sw.laps}
+                showLaps={sw.showLaps}
+                onChangeName={changeName}
+                onStart={startStopwatch}
+                onStop={stopStopwatch}
+                onReset={resetStopwatch}
+                onLap={lapStopwatch}
+                onToggleLapHistory={toggleLapHistory}
+                onDuplicate={duplicateStopwatch}
+                index={index + 1}
+                onRemove={removeStopwatchById}
+                onDragStart={setDraggingId}
+                onDragEnter={(hoverId) => {
+                  if (draggingId !== null) {
+                    reorderStopwatch(draggingId, hoverId);
+                  }
+                }}
+                onDragEnd={() => setDraggingId(null)}
+                isDragging={draggingId === sw.id}
               />
             ))}
           </div>
@@ -103,43 +284,74 @@ export default function App() {
             >
               履歴
             </button>
+            <button
+              onClick={() => setShowInfo(true)}
+              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
+            >
+              i
+            </button>
           </div>
         </div>
         {showHistory && (
-          <div className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100 overflow-y-auto" onClick={() => setShowHistory(false)}>
+          <div
+            className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100 overflow-y-auto"
+            onClick={() => setShowHistory(false)}
+          >
             <div className="flex justify-center pt-10">
-              <div className="w-full max-w-7xl px-4" onClick={(e) => e.stopPropagation()}>
-                <div className="mb-6 flex items-center justify-between">
-                </div>
+              <div
+                className="w-full max-w-7xl px-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="mb-6 flex items-center justify-between"></div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {histories.length === 0 ? (
+                  {stopwatches.length === 0 ? (
                     <div className="rounded-2xl bg-slate-800 p-4 text-slate-300">
                       まだ履歴はありません
                     </div>
                   ) : (
-                    histories.map((history, index) => (
+                    stopwatches.map((sw, index) => (
                       <div
-                        key={history.stopwatchId}
+                        key={sw.id}
                         className="rounded-2xl bg-slate-800 p-4 shadow"
                       >
                         <div className="mb-4 flex items-center gap-3">
                           <div className="text-sm text-slate-400">
-                             {index + 1}
+                            {index + 1}
                           </div>
                           <div className="text-lg font-bold">
-                            {history.name || "stopwatchName"}
+                            {sw.name || "stopwatchName"}
                           </div>
                         </div>
 
                         <LapTable
-                          laps={history.laps}
+                          laps={sw.laps}
                           formatTimeText={formatTimeText}
-                          name={history.name}
+                          name={sw.name}
                         />
                       </div>
                     ))
                   )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showInfo && (
+          <div
+            className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100"
+            onClick={() => setShowInfo(false)}
+          >
+            <div className="flex justify-center items-start pt-20">
+              <div
+                className="w-full max-w-md px-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="rounded-2xl bg-slate-800 p-6 shadow">
+                  <div className="mb-4 text-lg font-bold">How to use</div>
+
+                  <div className="text-sm text-slate-200">ここに説明入れる</div>
                 </div>
               </div>
             </div>
