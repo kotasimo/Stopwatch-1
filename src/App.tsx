@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { StopwatchCard } from "./stopwatchCard";
 import { LapTable } from "./LapTable";
 
@@ -18,11 +18,6 @@ type StopwatchItem = {
   startedAt: number | null;
 };
 
-type StopwatchHistory = {
-  stopwatchId: number;
-  name: string;
-  laps: Lap[];
-};
 
 export default function App() {
   const createStopwatch = (id: number): StopwatchItem => ({
