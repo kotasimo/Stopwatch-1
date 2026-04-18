@@ -316,7 +316,7 @@ export default function App() {
         </div>
         {showHistory && (
           <div
-            className="modal-overlay"
+            className="modal-overlay pb-24"
             onClick={() => setShowHistory(false)}
           >
             <div className="flex justify-center pt-10">
