@@ -5,7 +5,7 @@ type Props = {
   formatTimeText: (ms: number) => string;
 };
 
-export const LapTable = ({ laps, formatTimeText, name }: Props) => {
+export const LapTable = ({ laps, formatTimeText,  }: Props) => {
   return (
 
     <div className="max-h-88 text-center overflow-auto border-t border-white/10">
