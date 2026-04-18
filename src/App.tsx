@@ -224,32 +224,32 @@ export default function App() {
             {stopwatches.map((sw, index) => (
               <div key={sw.id} className="w-full max-w-[340px] mx-auto">
                 <StopwatchCard
-                key={sw.id}
-                stopwatchId={sw.id}
-                name={sw.name}
-                elapsedTime={sw.elapsedTime}
-                status={sw.status}
-                laps={sw.laps}
-                showLaps={sw.showLaps}
-                onChangeName={changeName}
-                onStart={startStopwatch}
-                onStop={stopStopwatch}
-                onReset={resetStopwatch}
-                onLap={lapStopwatch}
-                onToggleLapHistory={toggleLapHistory}
-                onDuplicate={duplicateStopwatch}
-                index={index + 1}
-                onRemove={removeStopwatchById}
-                onDragStart={setDraggingId}
-                onDragEnter={(hoverId) => {
-                  if (draggingId !== null) {
-                    reorderStopwatch(draggingId, hoverId);
-                  }
-                }}
-                onDragEnd={() => setDraggingId(null)}
-                isDragging={draggingId === sw.id}
-                isNew={sw.isNew}
-              />
+                  key={sw.id}
+                  stopwatchId={sw.id}
+                  name={sw.name}
+                  elapsedTime={sw.elapsedTime}
+                  status={sw.status}
+                  laps={sw.laps}
+                  showLaps={sw.showLaps}
+                  onChangeName={changeName}
+                  onStart={startStopwatch}
+                  onStop={stopStopwatch}
+                  onReset={resetStopwatch}
+                  onLap={lapStopwatch}
+                  onToggleLapHistory={toggleLapHistory}
+                  onDuplicate={duplicateStopwatch}
+                  index={index + 1}
+                  onRemove={removeStopwatchById}
+                  onDragStart={setDraggingId}
+                  onDragEnter={(hoverId) => {
+                    if (draggingId !== null) {
+                      reorderStopwatch(draggingId, hoverId);
+                    }
+                  }}
+                  onDragEnd={() => setDraggingId(null)}
+                  isDragging={draggingId === sw.id}
+                  isNew={sw.isNew}
+                />
               </div>
             ))}
           </div>
@@ -307,9 +307,9 @@ export default function App() {
 
               <button
                 onClick={() => setShowInfo(true)}
-                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
+                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700" translate="no"
               >
-                情報
+                i
               </button>
             </div>
           </div>
@@ -321,7 +321,7 @@ export default function App() {
           >
             <div className="flex justify-center pt-10">
               <div
-                className="w-full max-w-7xl px-4"
+                className="w-[80%] max-w-md mx-auto md:w-full md:max-w-4xl xl:max-w-7xl"
                 onClick={(e) => e.stopPropagation()}
               >
 
@@ -337,8 +337,8 @@ export default function App() {
                         key={sw.id}
                         className="rounded-2xl bg-slate-800 p-4 shadow"
                       >
-                        <div className="mb-4 flex items-center gap-3">
-                          <div className="text-sm text-slate-400">
+                        <div className="mb-2 flex items-center gap-5">
+                          <div className="text-lg">
                             {index + 1}
                           </div>
                           <div className="text-lg font-bold">
