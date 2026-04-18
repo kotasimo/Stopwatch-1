@@ -258,16 +258,16 @@ export default function App() {
           <div className="flex flex-col gap-2 self-start hidden xl:flex">
             <button
               onClick={addStopwatch}
-              className="h-fit rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-2xl font-extrabold"
+              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
             >
-              ＋
+              追加
             </button>
 
             <button
               onClick={removeStopwatch}
-              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-2xl font-extrabold"
+              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
             >
-              ー
+              削除
             </button>
 
             <button
