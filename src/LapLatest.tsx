@@ -15,7 +15,7 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory }: Props) => {
 
   return (
     <div>
-      <div className="grid grid-cols-[36px_100px_1fr] grid-rows-[60px_60px] items-center gap-x-1 gap-y-0">
+      <div className="grid grid-cols-[36px_70px_1fr] grid-rows-[60px_60px] items-center gap-x-1 gap-y-0">
         <div className="text-[20px] uppercase tracking-wide text-slate-300 " translate="no">
           SPLIT
         </div>
