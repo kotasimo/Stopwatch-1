@@ -361,7 +361,7 @@ export default function App() {
 
         {showInfo && (
           <div
-            className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100"
+            className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100  pd-24"
             onClick={() => setShowInfo(false)}
           >
             <div className="flex justify-center items-start pt-20">
