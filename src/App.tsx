@@ -321,12 +321,11 @@ export default function App() {
           >
             <div className="flex justify-center pt-10">
               <div
-                className="w-[80%] max-w-md mx-auto md:w-full md:max-w-4xl xl:max-w-7xl"
+                className=" w-[80%] max-w-md mx-auto md:w-full md:max-w-4xl xl:max-w-7xl"
                 onClick={(e) => e.stopPropagation()}
               >
 
-
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {stopwatches.length === 0 ? (
                     <div className="rounded-2xl bg-slate-800 p-4 text-slate-300">
                       まだ履歴はありません
