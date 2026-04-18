@@ -3,7 +3,6 @@ import type { Lap } from "./type";
 type Props = {
   laps: Lap[];
   formatTimeText: (ms: number) => string;
-  name?: string;
 };
 
 export const LapTable = ({ laps, formatTimeText, name }: Props) => {
