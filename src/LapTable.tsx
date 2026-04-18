@@ -10,7 +10,6 @@ export const LapTable = ({ laps, formatTimeText, name }: Props) => {
   return (
 
     <div className="max-h-88 text-center overflow-auto border-t border-white/10">
-      <div className="color">{ name }</div>
       <table className="w-full text-sm">
         <thead className="sticky top-0 z-10 bg-slate-950/70">
           <tr className="text-slate-300">
@@ -21,13 +20,13 @@ export const LapTable = ({ laps, formatTimeText, name }: Props) => {
         </thead>
         
         <tbody className="divide-y divide-white/10">
-          {[...laps].map((lap, index) => (
-            <tr className={index == 0 ? "bg-white/7" : "bg-white/7"} key={lap.lap}>
+          {laps.map((lap) => (
+            <tr className= "bg-white/7" key={lap.lap}>
               <td className="px-6 py-3 text-center text-slate-200">{lap.lap}</td>
               <td className="px-6 py-3 text-center font-mono tabular-nums text-slate-100">
                 {formatTimeText(lap.lapTime)}
               </td>
-              <td className="px-6 py-3 text-center font-mono tabular-nums text-slate-100">
+              <td className="px-6 py-3 font-mono tabular-nums text-slate-100">
                 {formatTimeText(lap.totalTime)}
               </td>
             </tr>

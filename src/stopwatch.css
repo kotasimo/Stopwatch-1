@@ -87,3 +87,8 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   z-index: 10;
 }
+
+.stopwatch-card.new-card {
+  border: 2px solid #63f16d;
+  /* background-color: rgba(99, 102, 241, 0.05); */
+}

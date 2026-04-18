@@ -30,6 +30,7 @@ type StopwatchCardProps = {
   onDragEnter: (id: number) => void;
   onDragEnd: () => void;
   isDragging: boolean;
+  isNew?: boolean;
 };
 
 export const StopwatchCard = ({
@@ -52,6 +53,7 @@ export const StopwatchCard = ({
   onDragEnter,
   onDragEnd,
   isDragging,
+  isNew
 }: StopwatchCardProps) => {
   const formatTime = (ms: number) => {
     const minutes = Math.floor(ms / 1000 / 60)
@@ -76,14 +78,14 @@ export const StopwatchCard = ({
 
   return (
     <div
-      className={`stopwatch-card ${isDragging ? "dragging" : ""}`}
+      className={`stopwatch-card ${isDragging ? "dragging" : ""} ${isNew ? "new-card" : ""}`}
       draggable
       onDragStart={() => onDragStart(stopwatchId)}
       onDragEnter={() => onDragEnter(stopwatchId)}
       onDragOver={(e) => e.preventDefault()}
       onDragEnd={onDragEnd}
     >
-      <div className="stopwatch-card-inner">
+      <div className="stopwatch-card-content">
         <div className="flex items-center gap-1 mb-1">
           {/* 左：番号 */}
           <div className="text-sm text-slate-400 w-6 text-center">{index}</div>

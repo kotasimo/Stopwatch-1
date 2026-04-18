@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { StopwatchCard } from "./stopwatchCard";
 import { LapTable } from "./LapTable";
+import { Analytics } from "@vercel/analytics/react";
 
 type Lap = {
   lap: number;
@@ -16,6 +17,7 @@ type StopwatchItem = {
   laps: Lap[];
   showLaps: boolean;
   startedAt: number | null;
+  isNew?: boolean;
 };
 
 
@@ -34,13 +36,12 @@ export default function App() {
     createStopwatch(1),
     createStopwatch(2),
     createStopwatch(3),
-    createStopwatch(4),
-    createStopwatch(5),
-    createStopwatch(6),
+    // createStopwatch(4),
+    // createStopwatch(5),
+    // createStopwatch(6),
   ]);
 
   const [showHistory, setShowHistory] = useState(false);
-  // const [histories, setHistories] = useState<StopwatchHistory[]>([]);
   const [draggingId, setDraggingId] = useState<number | null>(null);
   const [showInfo, setShowInfo] = useState(false);
 
@@ -166,27 +167,13 @@ export default function App() {
     return `${minutes}'${seconds}"${milliseconds}`;
   };
 
-  // const handleUpdateHistory = useCallback((history: StopwatchHistory) => {
-  //   setHistories((prev) => {
-  //     const existingIndex = prev.findIndex(
-  //       (item) => item.stopwatchId === history.stopwatchId,
-  //     );
-
-  //     if (existingIndex === -1) {
-  //       return [...prev, history];
-  //     }
-
-  //     const updated = [...prev];
-  //     updated[existingIndex] = history;
-  //     return updated;
-  //   });
-  // }, []);
 
   const duplicateStopwatch = (id: number) => {
     setStopwatches((prev) => {
-      const target = prev.find((sw) => sw.id === id);
-      if (!target) return prev;
+      const targetIndex = prev.findIndex((sw) => sw.id === id);
+      if (targetIndex === -1) return prev;
 
+      const target = prev[targetIndex];
       const newId = Date.now();
 
       const duplicated: StopwatchItem = {
@@ -195,10 +182,16 @@ export default function App() {
         name: target.name ? `${target.name} copy` : "",
         laps: [...target.laps],
         startedAt:
-          target.status === "running" ? Date.now() - target.elapsedTime : null,
+          target.status === "running"
+            ? Date.now() - target.elapsedTime
+            : null,
+            isNew: true,
       };
 
-      return [...prev, duplicated];
+      const updated = [...prev];
+      updated.splice(targetIndex + 1, 0, duplicated);
+
+      return updated;
     });
   };
 
@@ -254,6 +247,7 @@ export default function App() {
                 }}
                 onDragEnd={() => setDraggingId(null)}
                 isDragging={draggingId === sw.id}
+                isNew={sw.isNew}
               />
             ))}
           </div>
@@ -297,7 +291,7 @@ export default function App() {
                 className="w-full max-w-7xl px-4"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="mb-6 flex items-center justify-between"></div>
+                
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {stopwatches.length === 0 ? (
@@ -353,6 +347,7 @@ export default function App() {
           </div>
         )}
       </div>
+      <Analytics />
     </div>
   );
 }
