@@ -222,7 +222,8 @@ export default function App() {
         <div className="flex flex-col xl:flex-row gap-4">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1">
             {stopwatches.map((sw, index) => (
-              <StopwatchCard
+              <div key={sw.id} className="w-full max-w-[340px] mx-auto">
+                <StopwatchCard
                 key={sw.id}
                 stopwatchId={sw.id}
                 name={sw.name}
@@ -249,6 +250,7 @@ export default function App() {
                 isDragging={draggingId === sw.id}
                 isNew={sw.isNew}
               />
+              </div>
             ))}
           </div>
 
@@ -284,21 +286,21 @@ export default function App() {
             <div className="fixed bottom-0 left-0 z-50 grid h-14 w-full grid-cols-4 border-t border-slate-700 bg-slate-900/95 backdrop-blur xl:hidden">
               <button
                 onClick={addStopwatch}
-                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
+                className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
               >
                 追加
               </button>
 
               <button
                 onClick={removeStopwatch}
-                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
+                className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700 "
               >
                 削除
               </button>
 
               <button
                 onClick={() => setShowHistory(true)}
-                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
+                className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
               >
                 履歴
               </button>
