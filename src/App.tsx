@@ -280,19 +280,36 @@ export default function App() {
               i
             </button>
           </div>
-          <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 gap-2 rounded-full bg-slate-900/90 px-3 py-2 shadow-lg backdrop-blur xl:hidden">
-            <button onClick={addStopwatch} className="rounded-full bg-slate-800 px-4 py-2 text-sm font-bold hover:bg-slate-700">
-              ＋
-            </button>
-            <button onClick={removeStopwatch} className="rounded-full bg-slate-800 px-4 py-2 text-sm font-bold hover:bg-slate-700">
-              ー
-            </button>
-            <button onClick={() => setShowHistory(true)} className="rounded-full bg-slate-800 px-4 py-2 text-sm font-bold hover:bg-slate-700">
-              履歴
-            </button>
-            <button onClick={() => setShowInfo(true)} className="rounded-full bg-slate-800 px-4 py-2 text-sm font-bold hover:bg-slate-700" translate="no">
-              i
-            </button>
+          <div className="fixed bottom-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur border-t border-slate-700 xl:hidden">
+            <div className="flex justify-around py-2">
+              <button
+                onClick={addStopwatch}
+                className="flex flex-col items-center text-sm font-bold text-slate-200"
+              >
+                追加
+              </button>
+
+              <button
+                onClick={removeStopwatch}
+                className="flex flex-col items-center text-sm font-bold text-slate-200"
+              >
+                削除
+              </button>
+
+              <button
+                onClick={() => setShowHistory(true)}
+                className="flex flex-col items-center text-sm font-bold text-slate-200"
+              >
+                履歴
+              </button>
+
+              <button
+                onClick={() => setShowInfo(true)}
+                className="flex flex-col items-center text-sm font-bold text-slate-200"
+              >
+                i
+              </button>
+            </div>
           </div>
         </div>
         {showHistory && (
