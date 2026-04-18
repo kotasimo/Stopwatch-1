@@ -217,7 +217,7 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen bg-black text-slate-100 pb-24 overscroll-none">
+    <div className="min-h-screen bg-black text-slate-100 pb-24 overscroll-none">
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col xl:flex-row gap-4">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1">
