@@ -185,7 +185,7 @@ export default function App() {
           target.status === "running"
             ? Date.now() - target.elapsedTime
             : null,
-            isNew: true,
+        isNew: true,
       };
 
       const updated = [...prev];
@@ -252,7 +252,7 @@ export default function App() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-2 self-start">
+          <div className="flex flex-col gap-2 self-start hidden xl:flex">
             <button
               onClick={addStopwatch}
               className="h-fit rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-2xl font-extrabold"
@@ -275,8 +275,22 @@ export default function App() {
             </button>
             <button
               onClick={() => setShowInfo(true)}
-              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
+              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold " translate="no"
             >
+              i
+            </button>
+          </div>
+          <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 gap-2 rounded-full bg-slate-900/90 px-3 py-2 shadow-lg backdrop-blur xl:hidden">
+            <button onClick={addStopwatch} className="rounded-full bg-slate-800 px-4 py-2 text-sm font-bold hover:bg-slate-700">
+              ＋
+            </button>
+            <button onClick={removeStopwatch} className="rounded-full bg-slate-800 px-4 py-2 text-sm font-bold hover:bg-slate-700">
+              ー
+            </button>
+            <button onClick={() => setShowHistory(true)} className="rounded-full bg-slate-800 px-4 py-2 text-sm font-bold hover:bg-slate-700">
+              履歴
+            </button>
+            <button onClick={() => setShowInfo(true)} className="rounded-full bg-slate-800 px-4 py-2 text-sm font-bold hover:bg-slate-700" translate="no">
               i
             </button>
           </div>
@@ -291,7 +305,7 @@ export default function App() {
                 className="w-full max-w-7xl px-4"
                 onClick={(e) => e.stopPropagation()}
               >
-                
+
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {stopwatches.length === 0 ? (

@@ -20,7 +20,7 @@ export const TimeDisplay = ({
       <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
         {seconds}
       </span>
-      <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300">
+      <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300" translate="no">
         "
       </span>
       <span className="inline-block w-[3ch] text-center text-2xl text-slate-200 sm:text-3xl">
