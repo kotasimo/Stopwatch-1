@@ -327,14 +327,14 @@ export default function App() {
 
                 <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {stopwatches.length === 0 ? (
-                    <div className="rounded-2xl bg-slate-800 p-4 text-slate-300">
+                    <div className="rounded-2xl bg-slate-900 p-4 text-slate-300">
                       まだ履歴はありません
                     </div>
                   ) : (
                     stopwatches.map((sw, index) => (
                       <div
                         key={sw.id}
-                        className="rounded-2xl bg-slate-800 p-4 shadow"
+                        className="rounded-2xl bg-slate-900 p-4 shadow"
                       >
                         <div className="mb-2 flex items-center gap-5">
                           <div className="text-lg">
