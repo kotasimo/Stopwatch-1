@@ -280,34 +280,34 @@ export default function App() {
               i
             </button>
           </div>
-          <div className="fixed bottom-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur border-t border-slate-700 xl:hidden">
-            <div className="flex justify-around py-2">
+          <div className="fixed bottom-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur border-t border-slate-700 xl:hidden flex">
+            <div className="fixed bottom-0 left-0 z-50 grid h-14 w-full grid-cols-4 border-t border-slate-700 bg-slate-900/95 backdrop-blur xl:hidden">
               <button
                 onClick={addStopwatch}
-                className="flex flex-col items-center text-sm font-bold text-slate-200"
+                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
               >
                 追加
               </button>
 
               <button
                 onClick={removeStopwatch}
-                className="flex flex-col items-center text-sm font-bold text-slate-200"
+                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
               >
                 削除
               </button>
 
               <button
                 onClick={() => setShowHistory(true)}
-                className="flex flex-col items-center text-sm font-bold text-slate-200"
+                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
               >
                 履歴
               </button>
 
               <button
                 onClick={() => setShowInfo(true)}
-                className="flex flex-col items-center text-sm font-bold text-slate-200"
+                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
               >
-                i
+                情報
               </button>
             </div>
           </div>
