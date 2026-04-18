@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { StopwatchCard } from "./stopwatchCard";
 import { LapTable } from "./LapTable";
 import { Analytics } from "@vercel/analytics/react";
+import { INFO, } from "./info";
 
 type Lap = {
   lap: number;
@@ -371,7 +372,14 @@ export default function App() {
                 <div className="rounded-2xl bg-slate-800 p-6 shadow">
                   <div className="mb-4 text-lg font-bold">How to use</div>
 
-                  <div className="text-sm text-slate-200">ここに説明入れる</div>
+                  <div className="text-sm text-slate-200 space-y-4">
+                    {INFO.map((item, i) => (
+                      <div key={i}>
+                        <div className="font-bold text-slate-100">{item.title}</div>
+                        <div className="whitespace-pre-line">{item.body}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
