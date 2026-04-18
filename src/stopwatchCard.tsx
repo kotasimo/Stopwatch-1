@@ -148,7 +148,7 @@ export const StopwatchCard = ({
             className="lap-modal-content"
             onClick={(e) => e.stopPropagation()}
           >
-            <LapTable laps={laps} formatTimeText={formatTimeText} name={name} />
+            <LapTable laps={laps} formatTimeText={formatTimeText}  />
           </section>
         </div>
       )}

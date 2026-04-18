@@ -316,7 +316,6 @@ export default function App() {
                         <LapTable
                           laps={sw.laps}
                           formatTimeText={formatTimeText}
-                          name={sw.name}
                         />
                       </div>
                     ))
