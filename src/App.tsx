@@ -316,12 +316,12 @@ export default function App() {
         </div>
         {showHistory && (
           <div
-            className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100 overflow-y-auto"
+            className="modal-overlay"
             onClick={() => setShowHistory(false)}
           >
             <div className="flex justify-center pt-10">
               <div
-                className=" w-[80%] max-w-md mx-auto md:w-full md:max-w-4xl xl:max-w-7xl"
+                className="modal-content"
                 onClick={(e) => e.stopPropagation()}
               >
 
@@ -340,7 +340,7 @@ export default function App() {
                           <div className="text-lg">
                             {index + 1}
                           </div>
-                          <div className="text-lg font-bold">
+                          <div className="text-lg font-bold ">
                             {sw.name || "stopwatchName"}
                           </div>
                         </div>

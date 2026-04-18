@@ -59,6 +59,45 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45); /* ← 少し軽く */
 }
 
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+
+  z-index: 50;
+
+  /* bg-slate-950/90 */
+  background-color: rgba(2, 6, 23, 0.9);
+
+  /* text-slate-100 */
+  color: #f1f5f9;
+
+  overflow-y: auto;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 28rem; /* md */
+
+  margin-left: auto;
+  margin-right: auto;
+  background: rgb(15, 23, 42);
+}
+
+/* md以上 */
+@media (min-width: 768px) {
+  .modal-content {
+    width: 100%;
+    max-width: 56rem;
+  }
+}
+
+/* xl以上 */
+@media (min-width: 1280px) {
+  .modal-content {
+    max-width: 80rem;
+  }
+}
+
 .name {
   border: 1px solid rgb(184, 182, 182);
   border-radius: 8px;
@@ -92,3 +131,4 @@
   border: 2px solid #63f16d;
   /* background-color: rgba(99, 102, 241, 0.05); */
 }
+
