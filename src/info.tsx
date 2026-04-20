@@ -1,6 +1,7 @@
 export const INFO = {
   ja: [
     {
+      title: "概要",
       body: "直感でできる部分は割愛\nパソコンで使うことを前提にしていますが、スマホでも多分使用可",
     },
     {
@@ -31,6 +32,7 @@ export const INFO = {
 
   en: [
     {
+      title: "Overview",
       body: "Some intuitive parts are omitted.\nDesigned mainly for PC, but should work on mobile.",
     },
     {
@@ -59,4 +61,3 @@ export const INFO = {
     },
   ],
 } as const;
-
