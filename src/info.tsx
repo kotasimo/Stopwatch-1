@@ -16,8 +16,8 @@ export const INFO = {
       body: "「＋」ボタンをクリック。これまでの時間とLAP履歴を共有したストップウォッチが複製。（緑枠）",
     },
     {
-      title: "ラップの色",
-      body: "履歴の中でラップの行をクリックすると、その行が緑に変化。",
+      title: "ラップの選択",
+      body: "履歴の中でラップの行をクリックすると、その行が選択状態になります。",
     },
     {
       title: "移動",
@@ -46,8 +46,8 @@ export const INFO = {
       body: "Click '+' to duplicate a stopwatch with the same time and laps.",
     },
     {
-      title: "Lap Highlight",
-      body: "Click a lap row in history to highlight it in green.",
+      title: "Lap Selection",
+      body: "Click a lap row in history to select it.",
     },
     {
       title: "Move",
@@ -59,3 +59,4 @@ export const INFO = {
     },
   ],
 } as const;
+

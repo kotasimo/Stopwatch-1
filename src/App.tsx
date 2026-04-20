@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StopwatchCard } from "./stopwatchCard";
 import { LapTable } from "./LapTable";
 import { Analytics } from "@vercel/analytics/react";
-import { INFO, } from "./info";
+import { INFO } from "./info";
 
 type Lap = {
   lap: number;
@@ -20,7 +20,6 @@ type StopwatchItem = {
   startedAt: number | null;
   isNew?: boolean;
 };
-
 
 export default function App() {
   const createStopwatch = (id: number): StopwatchItem => ({
@@ -168,7 +167,6 @@ export default function App() {
     return `${minutes}'${seconds}"${milliseconds}`;
   };
 
-
   const duplicateStopwatch = (id: number) => {
     setStopwatches((prev) => {
       const targetIndex = prev.findIndex((sw) => sw.id === id);
@@ -183,9 +181,7 @@ export default function App() {
         name: target.name ? `${target.name} copy` : "",
         laps: [...target.laps],
         startedAt:
-          target.status === "running"
-            ? Date.now() - target.elapsedTime
-            : null,
+          target.status === "running" ? Date.now() - target.elapsedTime : null,
         isNew: true,
       };
 
@@ -303,7 +299,8 @@ const t = TEXTS[lang];
             </button>
             <button
               onClick={() => setShowInfo(true)}
-              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold " translate="no"
+              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold "
+              translate="no"
             >
               i
             </button>
@@ -333,7 +330,8 @@ const t = TEXTS[lang];
 
               <button
                 onClick={() => setShowInfo(true)}
-                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700" translate="no"
+                className="h-full w-full text-sm font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
+                translate="no"
               >
                 i
               </button>
@@ -350,7 +348,6 @@ const t = TEXTS[lang];
                 className="modal-content"
                 onClick={(e) => e.stopPropagation()}
               >
-
                 <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {stopwatches.length === 0 ? (
                     <div className="rounded-2xl bg-slate-900 p-4 text-slate-300">
@@ -363,9 +360,7 @@ const t = TEXTS[lang];
                         className="rounded-2xl bg-slate-900 p-4 shadow"
                       >
                         <div className="mb-2 flex items-center gap-5">
-                          <div className="text-lg">
-                            {index + 1}
-                          </div>
+                          <div className="text-lg">{index + 1}</div>
                           <div className="text-lg font-bold ">
                             {sw.name || t.defaultName}
                           </div>
@@ -386,12 +381,12 @@ const t = TEXTS[lang];
 
         {showInfo && (
           <div
-            className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100  pd-24"
+            className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100 overflow-y-auto"
             onClick={() => setShowInfo(false)}
           >
-            <div className="flex justify-center items-start pt-20">
+            <div className="flex justify-center items-center min-h-full p-6">
               <div
-                className="w-full max-w-md px-4"
+                className="w-full max-w-md"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="rounded-2xl bg-slate-800 p-6 shadow">
@@ -400,7 +395,9 @@ const t = TEXTS[lang];
                   <div className="text-sm text-slate-200 space-y-4">
                     {INFO[lang].map((item, i) => (
                       <div key={i}>
-                        <div className="font-bold text-slate-100">{item.title}</div>
+                        <div className="font-bold text-slate-100">
+                          {item.title}
+                        </div>
                         <div className="whitespace-pre-line">{item.body}</div>
                       </div>
                     ))}
