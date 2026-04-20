@@ -217,6 +217,31 @@ export default function App() {
     });
   };
 
+  const lang = navigator.language.startsWith("ja") ? "ja" : "en";
+
+  const TEXTS = {
+  ja: {
+    add: "追加",
+    delete: "削除",
+    history: "履歴",
+    noHistory: "まだ履歴はありません",
+    defaultName: "stopwatchName",
+    howToUse: "使い方",
+    copySuffix: " コピー",
+  },
+  en: {
+    add: "Add",
+    delete: "Delete",
+    history: "History",
+    noHistory: "No history yet",
+    defaultName: "stopwatchName",
+    howToUse: "How to use",
+    copySuffix: " copy",
+  },
+} as const;
+
+const t = TEXTS[lang];
+
   return (
     <div className="min-h-screen bg-black text-slate-100 pb-24 overscroll-none">
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -260,21 +285,21 @@ export default function App() {
               onClick={addStopwatch}
               className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
             >
-              追加
+              {t.add}
             </button>
 
             <button
               onClick={removeStopwatch}
               className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
             >
-              削除
+              {t.delete}
             </button>
 
             <button
               onClick={() => setShowHistory(true)}
               className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
             >
-              履歴
+              {t.history}
             </button>
             <button
               onClick={() => setShowInfo(true)}
@@ -289,21 +314,21 @@ export default function App() {
                 onClick={addStopwatch}
                 className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
               >
-                追加
+                {t.add}
               </button>
 
               <button
                 onClick={removeStopwatch}
                 className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700 "
               >
-                削除
+                {t.delete}
               </button>
 
               <button
                 onClick={() => setShowHistory(true)}
                 className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
               >
-                履歴
+                {t.history}
               </button>
 
               <button
@@ -329,7 +354,7 @@ export default function App() {
                 <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {stopwatches.length === 0 ? (
                     <div className="rounded-2xl bg-slate-900 p-4 text-slate-300">
-                      まだ履歴はありません
+                      {t.noHistory}
                     </div>
                   ) : (
                     stopwatches.map((sw, index) => (
@@ -342,7 +367,7 @@ export default function App() {
                             {index + 1}
                           </div>
                           <div className="text-lg font-bold ">
-                            {sw.name || "stopwatchName"}
+                            {sw.name || t.defaultName}
                           </div>
                         </div>
 
@@ -370,10 +395,10 @@ export default function App() {
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="rounded-2xl bg-slate-800 p-6 shadow">
-                  <div className="mb-4 text-lg font-bold">How to use</div>
+                  <div className="mb-4 text-lg font-bold">{t.howToUse}</div>
 
                   <div className="text-sm text-slate-200 space-y-4">
-                    {INFO.map((item, i) => (
+                    {INFO[lang].map((item, i) => (
                       <div key={i}>
                         <div className="font-bold text-slate-100">{item.title}</div>
                         <div className="whitespace-pre-line">{item.body}</div>
