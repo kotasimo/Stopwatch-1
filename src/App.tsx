@@ -214,7 +214,7 @@ export default function App() {
     const seconds = Math.floor((ms / 1000) % 60)
       .toString()
       .padStart(2, "0");
-    const centiseconds = Math.floor(ms % 1000)
+    const centiseconds = Math.floor((ms % 1000) / 10)
       .toString()
       .padStart(2, "0");
 
