@@ -151,8 +151,8 @@ export const StopwatchCard = ({
           <div className="mt-1 border-t border-white/20 pt-0">
             {variant === "D" ? (
               <div className="flex w-full items-end justify-center font-mono tabular-nums overflow-hidden">
-                <span className="inline-block w-[1ch] text-center text-4xl font-semibold">
-                  {Number(minutes)}
+                <span className="inline-block w-[2ch] text-center text-4xl font-semibold">
+                  {minutes.toString().padStart(2, "0")}
                 </span>
                 <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
                   '
