@@ -76,16 +76,6 @@ export const StopwatchCard = ({
     return `${minutes}'${seconds}"${milliseconds}`;
   };
 
-  const formatTotalTimeText = (ms: number) => {
-    const minutes = Math.floor(ms / 1000 / 60);
-    const seconds = Math.floor((ms / 1000) % 60);
-    const tenth = Math.floor((ms % 1000) / 100);
-
-    const secondsText = seconds.toString().padStart(2, "0");
-
-    return `${minutes}'${secondsText}"${tenth}`;
-  };
-
   const { minutes, seconds, milliseconds } = formatTime(elapsedTime);
 
   const latest = laps.at(-1);
@@ -112,6 +102,12 @@ export const StopwatchCard = ({
             </div>
           )}
 
+          <button
+            onClick={() => onRemove(stopwatchId)}
+            className="text-xs px-2 py-1 rounded bg-red-500/70"
+          >
+            ✕
+          </button>
           {/* 中央：input */}
           <input
             value={name}
@@ -129,12 +125,7 @@ export const StopwatchCard = ({
               ＋
             </button>
 
-            <button
-              onClick={() => onRemove(stopwatchId)}
-              className="text-xs px-2 py-1 rounded bg-red-500/70"
-            >
-              ✕
-            </button>
+
           </div>
         </div>
 
@@ -201,22 +192,24 @@ export const StopwatchCard = ({
         </div>
       </div>
 
-      {showLaps && (
-        <div
-          className="lap-modal-overlay"
-          onClick={() => onToggleLapHistory(stopwatchId)}
-        >
-          <section
-            className="lap-modal-content"
-            onClick={(e) => e.stopPropagation()}
+      {
+        showLaps && (
+          <div
+            className="lap-modal-overlay"
+            onClick={() => onToggleLapHistory(stopwatchId)}
           >
-            <div className="text-lg font-bold mb-2 text-center">
-              {name || "stopwatchName"}
-            </div>
-            <LapTable laps={laps} formatTimeText={formatTimeText} />
-          </section>
-        </div>
-      )}
-    </div>
+            <section
+              className="lap-modal-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-lg font-bold mb-2 text-center">
+                {name || "stopwatchName"}
+              </div>
+              <LapTable laps={laps} formatTimeText={formatTimeText} />
+            </section>
+          </div>
+        )
+      }
+    </div >
   );
 };
