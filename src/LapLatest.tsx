@@ -4,7 +4,7 @@ type Props = {
   laps: Lap[];
   formatTimeText: (ms: number) => string;
   lapHistory: () => void;
-  variant: "A" | "B" | "C" | "D" | "E";
+  variant: "A" | "B" | "C" | "D" | "D2" | "E";
   liveLapTime: number;
   lastLapTime: number;
 };
@@ -60,7 +60,9 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
     );
   }
 
-  if (variant === "D" || variant === "E") {
+
+
+  if (variant === "D" || variant === "D2" || variant === "E") {
     return (
       <div onClick={lapHistory}>
         <div className="text-4xl">

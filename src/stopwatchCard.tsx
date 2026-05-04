@@ -17,7 +17,7 @@ type StopwatchCardProps = {
   status: "idle" | "running" | "stopped";
   laps: Lap[];
   showLaps: boolean;
-  variant: "A" | "B" | "C" | "D" | "E";
+  variant: "A" | "B" | "C" | "D" | "D2" | "E";
   onChangeName: (id: number, name: string) => void;
   onStart: (id: number) => void;
   onStop: (id: number) => void;
@@ -106,7 +106,7 @@ export const StopwatchCard = ({
       <div className="stopwatch-card-content">
         <div className="flex items-center gap-1 mb-1">
           {/* 左：番号 */}
-          {variant !== "D" && variant !== "E" && (
+          {variant !== "D" && variant !== "D2" && variant !== "E" && (
             <div className="text-sm text-slate-400 w-6 text-center shrink-0">
               {index}
             </div>
@@ -149,7 +149,7 @@ export const StopwatchCard = ({
           />
 
           <div className="mt-0 border-t border-white/20 pt-0">
-            {variant !== "C" && variant !== "E" && (
+            {variant !== "C" && variant !== "D2" && variant !== "E" && (
               <div>
                 {variant === "D" ? (
                   <div className="flex w-full items-end justify-center font-mono tabular-nums overflow-hidden">
@@ -192,7 +192,7 @@ export const StopwatchCard = ({
               variant === "C" || variant === "E" ? undefined : () => onStop(stopwatchId)
             }
             onReset={
-              variant === "D" || variant === "C" || variant === "E"
+              variant === "D" || variant === "D2" || variant === "C" || variant === "E"
                 ? undefined
                 : () => onReset(stopwatchId)
             }

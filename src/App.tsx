@@ -22,7 +22,7 @@ type StopwatchItem = {
 };
 
 type Screen = "home" | "stopwatch";
-type Variant = "A" | "B" | "C" | "D" | "E";
+type Variant = "A" | "B" | "C" | "D" | "D2" | "E";
 
 export default function App() {
   const createStopwatch = (id: number): StopwatchItem => ({
@@ -316,11 +316,12 @@ export default function App() {
 
           <div className="grid gap-3">
             {[
-              ["A", "現状"],
-              ["B", "LIVE LAP"],
-              ["C", "Minimal"],
-              ["D", "Smartphone Compact"],
-              ["E", "同時スタート"],
+              ["A", "パソコン用-SPLIT Time"],
+              ["B", "パソコン用-LAPのLiveTime"],
+              ["C", "パソコン用-同時スタート"],
+              ["D", "スマホ用-Bと同じ"],
+              ["E", "スマホ用-DからtotalTime表示を抜いた"],
+              ["F", "スマホ用-Cと同じ"],
             ].map(([value, label]) => (
               <button
                 key={value}
@@ -344,7 +345,7 @@ export default function App() {
   return (
 
     <div className="min-h-screen bg-black text-slate-100 pb-24 overscroll-none">
-      {variant === "C" || variant === "E"  && (
+      {(variant === "C" || variant === "E") && (
         <div className="fixed top-0 left-0 z-50 w-full bg-slate-950/95 border-b border-slate-700 py-3 font-mono tabular-nums">
           <div className="flex items-center justify-center gap-5">
 
@@ -375,6 +376,13 @@ export default function App() {
                 STOP
               </button>
             )}
+
+            <button
+              onClick={resetSharedTimer}
+              className="rounded-md bg-white/30 px-3 py-1.5 text-sm text-slate-100 hover:bg-white/10"
+            >
+              RESET
+            </button>
           </div>
         </div>
       )}
@@ -382,7 +390,7 @@ export default function App() {
         <div className="flex flex-col xl:flex-row gap-4">
           <div
             className={
-              variant === "D" || variant === "E"
+              variant === "D" || variant === "D2" || variant === "E"
                 ? "grid grid-cols-2 gap-2 flex-1"
                 : "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1"
             }
@@ -391,7 +399,7 @@ export default function App() {
               <div
                 key={sw.id}
                 className={
-                  variant === "D" || variant === "E"
+                  variant === "D" || variant === "D2" || variant === "E"
                     ? "w-full"
                     : "w-full max-w-[340px] mx-auto"
                 }
