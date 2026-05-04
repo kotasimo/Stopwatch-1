@@ -150,20 +150,20 @@ export const StopwatchCard = ({
 
           <div className="mt-1 border-t border-white/20 pt-0">
             {variant === "D" ? (
-              <div className="flex w-full max-w-[460px] items-end justify-center font-mono tabular-nums">
-                <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
-                  {minutes}
+              <div className="flex w-full items-end justify-center font-mono tabular-nums overflow-hidden">
+                <span className="inline-block w-[1ch] text-center text-4xl font-semibold">
+                  {Number(minutes)}
                 </span>
-                <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300">
+                <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
                   '
                 </span>
-                <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
+                <span className="inline-block w-[2ch] text-center text-4xl font-semibold">
                   {seconds}
                 </span>
-                <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300" translate="no">
+                <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
                   "
                 </span>
-                <span className="inline-block w-[1ch] text-center text-4xl text-slate-200 sm:text-3xl">
+                <span className="inline-block w-[1ch] text-center text-xl text-slate-200">
                   {Math.floor(Number(milliseconds) / 100)}
                 </span>
               </div>
