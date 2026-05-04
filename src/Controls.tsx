@@ -3,8 +3,8 @@ import "./stopwatch.css";
 
 type Props = {
   statusConf: Status;
-  onStart: () => void;
-  onStop: () => void;
+  onStart?: () => void;
+  onStop?: () => void;
   onReset?: () => void;
   onLap: () => void;
 };
@@ -25,6 +25,8 @@ export const Controls = ({
         : "START";
 
   const mainHandler = statusConf === "running" ? onStop : onStart;
+
+  const showMainButton = mainHandler !== undefined;
 
   const lang = navigator.language.startsWith("ja") ? "ja" : "en";
 
@@ -50,14 +52,23 @@ export const Controls = ({
   return (
     <>
       <div className={onReset ? "controls three" : "controls two"}>
-        <div className={`mt-2 grid gap-3 ${onReset ? "grid-cols-3" : "grid-cols-2"}`}>
-          <button
-            type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-500 px-4 py-3 text-sm font-semibold text-white shadow-sm shadow-indigo-500/20 ring-1 ring-inset ring-white/10 transition hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/80 active:translate-y-px"
-            onClick={mainHandler}
-          >
-            {mainLabel}
-          </button>
+        <div
+          className={`mt-2 grid gap-3 ${onReset
+            ? "grid-cols-3"
+            : showMainButton
+              ? "grid-cols-2"
+              : "grid-cols-1"
+            }`}
+        >
+          {showMainButton && (
+            <button
+              type="button"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-500 px-4 py-3 text-sm font-semibold text-white shadow-sm shadow-indigo-500/20 ring-1 ring-inset ring-white/10 transition hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/80 active:translate-y-px"
+              onClick={mainHandler}
+            >
+              {mainLabel}
+            </button>
+          )}
 
           <button
             type="button"

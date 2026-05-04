@@ -11,6 +11,9 @@
   background: rgba(255, 255, 255, 0.07);
   padding: 12px;
 }
+.stopwatch-card.compact {
+  aspect-ratio: auto;
+}
 
 .stopwatch-card-inner {
   display: flex;

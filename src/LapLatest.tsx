@@ -4,7 +4,7 @@ type Props = {
   laps: Lap[];
   formatTimeText: (ms: number) => string;
   lapHistory: () => void;
-  variant: "A" | "B" | "C" | "D" | "GROUP";
+  variant: "A" | "B" | "C" | "D" | "E";
   liveLapTime: number;
   lastLapTime: number;
 };
@@ -30,7 +30,7 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
     return `${minutes}'${seconds}"${centiseconds}`;
   };
 
-  if (variant === "B") {
+  if (variant === "B" || variant === "C") {
     return (
       <div>
         <div className="grid grid-cols-[36px_70px_1fr] grid-rows-[60px_60px] items-center gap-x-1 gap-y-0">
@@ -47,22 +47,20 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
             {formatTimeText(liveLapTime)}
           </div>
 
-          <div className="text-[20px] uppercase tracking-wide text-slate-300" onClick={lapHistory}>
+          <div className="lap-label text-[20px] uppercase tracking-wide text-slate-300" onClick={lapHistory}>
             LAST
           </div>
 
-          <div className="text-right font-mono tabular-nums text-3xl text-slate-100" onClick={lapHistory}>
+          <div className="lap-label text-right font-mono tabular-nums text-3xl text-slate-100" onClick={lapHistory}>
             {formatTimeText(lastLapTime)}
           </div>
 
         </div>
-
-        <div className="mt-1 border-t border-white/20" />
       </div>
     );
   }
 
-  if (variant === "D") {
+  if (variant === "D" || variant === "E") {
     return (
       <div onClick={lapHistory}>
         <div className="text-4xl">
@@ -99,8 +97,6 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
           {formatTimeText(lapTime)}
         </div>
       </div>
-
-      <div className="mt-1 border-t border-white/20" />
     </div>
   );
 };

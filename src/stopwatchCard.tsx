@@ -17,7 +17,7 @@ type StopwatchCardProps = {
   status: "idle" | "running" | "stopped";
   laps: Lap[];
   showLaps: boolean;
-  variant: "A" | "B" | "C" | "D" | "GROUP";
+  variant: "A" | "B" | "C" | "D" | "E";
   onChangeName: (id: number, name: string) => void;
   onStart: (id: number) => void;
   onStop: (id: number) => void;
@@ -66,7 +66,7 @@ export const StopwatchCard = ({
       .padStart(2, "0");
     const milliseconds = Math.floor(ms % 1000)
       .toString()
-      .padStart(3, "0");
+      .padStart(2, "0");
 
     return { minutes, seconds, milliseconds };
   };
@@ -95,7 +95,7 @@ export const StopwatchCard = ({
 
   return (
     <div
-      className={`stopwatch-card ${isDragging ? "dragging" : ""} ${isNew ? "new-card" : ""}`}
+      className={`stopwatch-card ${variant === "C" || variant === "E" ? "compact" : ""} ${isDragging ? "dragging" : ""} ${isNew ? "new-card" : ""}`}
       draggable
       onDragStart={() => onDragStart(stopwatchId)}
       onDragEnter={() => onDragEnter(stopwatchId)}
@@ -106,7 +106,7 @@ export const StopwatchCard = ({
       <div className="stopwatch-card-content">
         <div className="flex items-center gap-1 mb-1">
           {/* 左：番号 */}
-          {variant !== "D" && (
+          {variant !== "D" && variant !== "E" && (
             <div className="text-sm text-slate-400 w-6 text-center shrink-0">
               {index}
             </div>
@@ -117,7 +117,7 @@ export const StopwatchCard = ({
             value={name}
             onChange={(e) => onChangeName(stopwatchId, e.target.value)}
             className="flex-1 min-w-0 name text-xs"
-            placeholder="A"
+            placeholder="name"
           />
 
           {/* 右：ボタンまとめる */}
@@ -148,31 +148,35 @@ export const StopwatchCard = ({
             lastLapTime={lastLapTime}
           />
 
-          <div className="mt-1 border-t border-white/20 pt-0">
-            {variant === "D" ? (
-              <div className="flex w-full items-end justify-center font-mono tabular-nums overflow-hidden">
-                <span className="inline-block w-[2ch] text-center text-4xl font-semibold">
-                  {minutes.toString().padStart(2, "0")}
-                </span>
-                <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
-                  '
-                </span>
-                <span className="inline-block w-[2ch] text-center text-4xl font-semibold">
-                  {seconds}
-                </span>
-                <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
-                  "
-                </span>
-                <span className="inline-block w-[1ch] text-center text-xl text-slate-200">
-                  {Math.floor(Number(milliseconds) / 100)}
-                </span>
+          <div className="mt-0 border-t border-white/20 pt-0">
+            {variant !== "C" && variant !== "E" && (
+              <div>
+                {variant === "D" ? (
+                  <div className="flex w-full items-end justify-center font-mono tabular-nums overflow-hidden">
+                    <span className="inline-block w-[2ch] text-center text-4xl font-semibold">
+                      {minutes.toString().padStart(2, "0")}
+                    </span>
+                    <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
+                      '
+                    </span>
+                    <span className="inline-block w-[2ch] text-center text-4xl font-semibold">
+                      {seconds}
+                    </span>
+                    <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
+                      "
+                    </span>
+                    <span className="inline-block w-[1ch] text-center text-xl text-slate-200">
+                      {Math.floor(Number(milliseconds) / 100)}
+                    </span>
+                  </div>
+                ) : (
+                  <TimeDisplay
+                    minutes={minutes}
+                    seconds={seconds}
+                    milliseconds={milliseconds}
+                  />
+                )}
               </div>
-            ) : (
-              <TimeDisplay
-                minutes={minutes}
-                seconds={seconds}
-                milliseconds={milliseconds}
-              />
             )}
           </div>
 
@@ -181,9 +185,17 @@ export const StopwatchCard = ({
         <div className="stopwatch-controls-row">
           <Controls
             statusConf={status}
-            onStart={() => onStart(stopwatchId)}
-            onStop={() => onStop(stopwatchId)}
-            onReset={variant === "D" ? undefined : () => onReset(stopwatchId)}
+            onStart={
+              variant === "C" || variant === "E" ? undefined : () => onStart(stopwatchId)
+            }
+            onStop={
+              variant === "C" || variant === "E" ? undefined : () => onStop(stopwatchId)
+            }
+            onReset={
+              variant === "D" || variant === "C" || variant === "E"
+                ? undefined
+                : () => onReset(stopwatchId)
+            }
             onLap={() => onLap(stopwatchId)}
           />
         </div>
