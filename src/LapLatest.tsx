@@ -47,11 +47,11 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
             {formatTimeText(liveLapTime)}
           </div>
 
-          <div className="text-[20px] uppercase tracking-wide text-slate-300">
+          <div className="text-[20px] uppercase tracking-wide text-slate-300" onClick={lapHistory}>
             LAST
           </div>
 
-          <div className="text-right font-mono tabular-nums text-3xl text-slate-100">
+          <div className="text-right font-mono tabular-nums text-3xl text-slate-100" onClick={lapHistory}>
             {formatTimeText(lastLapTime)}
           </div>
 
@@ -64,7 +64,7 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
 
   if (variant === "D") {
     return (
-      <div>
+      <div onClick={lapHistory}>
         <div className="text-4xl">
           {formatLapTimeText(liveLapTime)}
         </div>
