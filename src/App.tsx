@@ -172,6 +172,8 @@ export default function App() {
     return `${minutes}'${seconds}"${milliseconds}`;
   };
 
+  
+
   const duplicateStopwatch = (id: number) => {
     setStopwatches((prev) => {
       const targetIndex = prev.findIndex((sw) => sw.id === id);
@@ -291,9 +293,22 @@ export default function App() {
     <div className="min-h-screen bg-black text-slate-100 pb-24 overscroll-none">
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col xl:flex-row gap-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1">
+          <div
+            className={
+              variant === "D"
+                ? "grid grid-cols-2 gap-2 flex-1"
+                : "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1"
+            }
+          >
             {stopwatches.map((sw, index) => (
-              <div key={sw.id} className="w-full max-w-[340px] mx-auto">
+              <div
+                key={sw.id}
+                className={
+                  variant === "D"
+                    ? "w-full"
+                    : "w-full max-w-[340px] mx-auto"
+                }
+              >
                 <StopwatchCard
                   key={sw.id}
                   stopwatchId={sw.id}
@@ -302,6 +317,7 @@ export default function App() {
                   status={sw.status}
                   laps={sw.laps}
                   showLaps={sw.showLaps}
+                  variant={variant}
                   onChangeName={changeName}
                   onStart={startStopwatch}
                   onStop={stopStopwatch}
@@ -320,6 +336,7 @@ export default function App() {
                   onDragEnd={() => setDraggingId(null)}
                   isDragging={draggingId === sw.id}
                   isNew={sw.isNew}
+
                 />
               </div>
             ))}

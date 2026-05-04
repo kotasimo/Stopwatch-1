@@ -17,6 +17,7 @@ type StopwatchCardProps = {
   status: "idle" | "running" | "stopped";
   laps: Lap[];
   showLaps: boolean;
+  variant: "A" | "B" | "C" | "D" | "GROUP";
   onChangeName: (id: number, name: string) => void;
   onStart: (id: number) => void;
   onStop: (id: number) => void;
@@ -40,6 +41,7 @@ export const StopwatchCard = ({
   status,
   laps,
   showLaps,
+  variant,
   onChangeName,
   onStart,
   onStop,
@@ -74,7 +76,22 @@ export const StopwatchCard = ({
     return `${minutes}'${seconds}"${milliseconds}`;
   };
 
+  const formatTotalTimeText = (ms: number) => {
+    const minutes = Math.floor(ms / 1000 / 60);
+    const seconds = Math.floor((ms / 1000) % 60);
+    const tenth = Math.floor((ms % 1000) / 100);
+
+    const secondsText = seconds.toString().padStart(2, "0");
+
+    return `${minutes}'${secondsText}"${tenth}`;
+  };
+
   const { minutes, seconds, milliseconds } = formatTime(elapsedTime);
+
+  const latest = laps.at(-1);
+  const lastTotalTime = latest?.totalTime ?? 0;
+  const liveLapTime = elapsedTime - lastTotalTime;
+  const lastLapTime = latest?.lapTime ?? 0;
 
   return (
     <div
@@ -84,34 +101,41 @@ export const StopwatchCard = ({
       onDragEnter={() => onDragEnter(stopwatchId)}
       onDragOver={(e) => e.preventDefault()}
       onDragEnd={onDragEnd}
+
     >
       <div className="stopwatch-card-content">
         <div className="flex items-center gap-1 mb-1">
           {/* 左：番号 */}
-          <div className="text-sm text-slate-400 w-6 text-center">{index}</div>
+          {variant !== "D" && (
+            <div className="text-sm text-slate-400 w-6 text-center shrink-0">
+              {index}
+            </div>
+          )}
 
           {/* 中央：input */}
           <input
             value={name}
             onChange={(e) => onChangeName(stopwatchId, e.target.value)}
-            className="flex-1 name"
-            placeholder="stopwatchName"
+            className="flex-1 min-w-0 name text-xs"
+            placeholder="A"
           />
 
-          {/* 右：copyボタン */}
-          <button
-            onClick={() => onDuplicate(stopwatchId)}
-            className="text-xs px-2 py-1 rounded bg-blue-500/70 hover:bg-slate-600"
-          >
-            ＋
-          </button>
+          {/* 右：ボタンまとめる */}
+          <div className="flex gap-1 shrink-0">
+            <button
+              onClick={() => onDuplicate(stopwatchId)}
+              className="text-xs px-2 py-1 rounded bg-blue-500/70"
+            >
+              ＋
+            </button>
 
-          <button
-            onClick={() => onRemove(stopwatchId)}
-            className="text-xs px-2 py-1 rounded bg-red-500/70 hover:bg-red-500"
-          >
-            ✕
-          </button>
+            <button
+              onClick={() => onRemove(stopwatchId)}
+              className="text-xs px-2 py-1 rounded bg-red-500/70"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         <div className="stopwatch-display-panel">
@@ -119,13 +143,36 @@ export const StopwatchCard = ({
             laps={laps}
             formatTimeText={formatTimeText}
             lapHistory={() => onToggleLapHistory(stopwatchId)}
+            variant={variant}
+            liveLapTime={liveLapTime}
+            lastLapTime={lastLapTime}
           />
 
-          <TimeDisplay
-            minutes={minutes}
-            seconds={seconds}
-            milliseconds={milliseconds}
-          />
+          {variant === "D" ? (
+            <div className="flex w-full max-w-[460px] items-end justify-center font-mono tabular-nums">
+              <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
+                {minutes}
+              </span>
+              <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300">
+                '
+              </span>
+              <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
+                {seconds}
+              </span>
+              <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300" translate="no">
+                "
+              </span>
+              <span className="inline-block w-[1ch] text-center text-2xl text-slate-200 sm:text-3xl">
+                {Math.floor(Number(milliseconds) / 100)}
+              </span>
+            </div>
+          ) : (
+            <TimeDisplay
+              minutes={minutes}
+              seconds={seconds}
+              milliseconds={milliseconds}
+            />
+          )}
         </div>
 
         <div className="stopwatch-controls-row">
@@ -133,7 +180,7 @@ export const StopwatchCard = ({
             statusConf={status}
             onStart={() => onStart(stopwatchId)}
             onStop={() => onStop(stopwatchId)}
-            onReset={() => onReset(stopwatchId)}
+            onReset={variant === "D" ? undefined : () => onReset(stopwatchId)}
             onLap={() => onLap(stopwatchId)}
           />
         </div>

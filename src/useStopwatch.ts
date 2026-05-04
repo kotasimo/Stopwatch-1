@@ -68,5 +68,12 @@ export const useStopwatch = () => {
     console.log(showLaps)
   };
 
-  return { status, laps, elapsedTime, showLaps, start, stop, reset, lap, lapHistory};
+  const lastTotalTime = laps.at(-1)?.totalTime ?? 0;
+  const liveLapTime = elapsedTime - lastTotalTime;
+  const lastLapTime = laps.at(-1)?.lapTime ?? 0;
+
+  return {
+    status, laps, elapsedTime, showLaps, liveLapTime,
+    lastLapTime, start, stop, reset, lap, lapHistory
+  };
 };

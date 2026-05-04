@@ -131,3 +131,10 @@
   /* background-color: rgba(99, 102, 241, 0.05); */
 }
 
+.controls.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.controls.two {
+  grid-template-columns: repeat(2, 1fr);
+}
