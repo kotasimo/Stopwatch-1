@@ -336,6 +336,47 @@ export default function App() {
               </button>
             ))}
           </div>
+          <div className="mt-6 text-center text-xs text-slate-500 space-y-1">
+            <p>LAPを記録すストップウォッチを複数使えます。</p>
+            <p>ストップウォッチ中のLAPタイムをタップすると、各ラップの詳細が見られます。</p>
+            <p>詳しくは下のiボタンへ</p>
+          </div>
+          <button
+            onClick={() => setShowInfo(true)}
+            className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold "
+            translate="no"
+          >
+            i
+          </button>
+
+          {showInfo && (
+            <div
+              className="fixed inset-0 z-50 bg-slate-950/90 text-slate-100 overflow-y-auto"
+              onClick={() => setShowInfo(false)}
+            >
+              <div className="flex justify-center items-center min-h-full p-6">
+                <div
+                  className="w-full max-w-md"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="rounded-2xl bg-slate-800 p-6 shadow">
+                    <div className="mb-4 text-lg font-bold">{t.howToUse}</div>
+
+                    <div className="text-sm text-slate-200 space-y-4">
+                      {INFO[lang].map((item, i) => (
+                        <div key={i}>
+                          <div className="font-bold text-slate-100">
+                            {item.title}
+                          </div>
+                          <div className="whitespace-pre-line">{item.body}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     );
