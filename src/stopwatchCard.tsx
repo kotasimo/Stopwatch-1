@@ -148,31 +148,34 @@ export const StopwatchCard = ({
             lastLapTime={lastLapTime}
           />
 
-          {variant === "D" ? (
-            <div className="flex w-full max-w-[460px] items-end justify-center font-mono tabular-nums">
-              <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
-                {minutes}
-              </span>
-              <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300">
-                '
-              </span>
-              <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
-                {seconds}
-              </span>
-              <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300" translate="no">
-                "
-              </span>
-              <span className="inline-block w-[1ch] text-center text-2xl text-slate-200 sm:text-3xl">
-                {Math.floor(Number(milliseconds) / 100)}
-              </span>
-            </div>
-          ) : (
-            <TimeDisplay
-              minutes={minutes}
-              seconds={seconds}
-              milliseconds={milliseconds}
-            />
-          )}
+          <div className="mt-1 border-t border-white/20 pt-0">
+            {variant === "D" ? (
+              <div className="flex w-full max-w-[460px] items-end justify-center font-mono tabular-nums">
+                <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
+                  {minutes}
+                </span>
+                <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300">
+                  '
+                </span>
+                <span className="inline-block w-[2ch] text-center text-5xl font-semibold tracking-tight sm:text-6xl">
+                  {seconds}
+                </span>
+                <span className="inline-block w-[1ch] pb-5 text-center text-2xl text-slate-300" translate="no">
+                  "
+                </span>
+                <span className="inline-block w-[1ch] text-center text-4xl text-slate-200 sm:text-3xl">
+                  {Math.floor(Number(milliseconds) / 100)}
+                </span>
+              </div>
+            ) : (
+              <TimeDisplay
+                minutes={minutes}
+                seconds={seconds}
+                milliseconds={milliseconds}
+              />
+            )}
+          </div>
+
         </div>
 
         <div className="stopwatch-controls-row">

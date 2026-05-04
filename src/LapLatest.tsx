@@ -30,16 +30,6 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
     return `${minutes}'${seconds}"${centiseconds}`;
   };
 
-  const formatTotalTimeText = (ms: number) => {
-    const minutes = Math.floor(ms / 1000 / 60);
-    const seconds = Math.floor((ms / 1000) % 60);
-    const tenth = Math.floor((ms % 1000) / 100);
-
-    const secondsText = seconds.toString().padStart(2, "0");
-
-    return `${minutes}'${secondsText}.${tenth}`;
-  };
-
   if (variant === "B") {
     return (
       <div>
