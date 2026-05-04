@@ -21,6 +21,9 @@ type StopwatchItem = {
   isNew?: boolean;
 };
 
+type Screen = "home" | "stopwatch";
+type Variant = "A" | "B" | "C" | "D" | "GROUP";
+
 export default function App() {
   const createStopwatch = (id: number): StopwatchItem => ({
     id,
@@ -44,6 +47,8 @@ export default function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [draggingId, setDraggingId] = useState<number | null>(null);
   const [showInfo, setShowInfo] = useState(false);
+  const [screen, setScreen] = useState<Screen>("home");
+  const [variant, setVariant] = useState<Variant>("A");
 
   const addStopwatch = () => {
     const newId = Date.now();
@@ -216,29 +221,73 @@ export default function App() {
   const lang = navigator.language.startsWith("ja") ? "ja" : "en";
 
   const TEXTS = {
-  ja: {
-    add: "追加",
-    delete: "削除",
-    history: "履歴",
-    noHistory: "まだ履歴はありません",
-    defaultName: "stopwatchName",
-    howToUse: "使い方",
-    copySuffix: " コピー",
-  },
-  en: {
-    add: "Add",
-    delete: "Delete",
-    history: "History",
-    noHistory: "No history yet",
-    defaultName: "stopwatchName",
-    howToUse: "How to use",
-    copySuffix: " copy",
-  },
-} as const;
+    ja: {
+      add: "追加",
+      delete: "削除",
+      history: "履歴",
+      noHistory: "まだ履歴はありません",
+      defaultName: "stopwatchName",
+      howToUse: "使い方",
+      copySuffix: " コピー",
+    },
+    en: {
+      add: "Add",
+      delete: "Delete",
+      history: "History",
+      noHistory: "No history yet",
+      defaultName: "stopwatchName",
+      howToUse: "How to use",
+      copySuffix: " copy",
+    },
+  } as const;
 
-const t = TEXTS[lang];
+  const t = TEXTS[lang];
+
+  if (screen === "home") {
+    return (
+      <main className="home-screen">
+        <h1>Stopwatch</h1>
+
+        <button onClick={() => {
+          setVariant("A");
+          setScreen("stopwatch");
+        }}>
+          A 現状
+        </button>
+
+        <button onClick={() => {
+          setVariant("B");
+          setScreen("stopwatch");
+        }}>
+          B LIVE LAP
+        </button>
+
+        <button onClick={() => {
+          setVariant("C");
+          setScreen("stopwatch");
+        }}>
+          C Minimal
+        </button>
+
+        <button onClick={() => {
+          setVariant("D");
+          setScreen("stopwatch");
+        }}>
+          D No Total
+        </button>
+
+        <button onClick={() => {
+          setVariant("GROUP");
+          setScreen("stopwatch");
+        }}>
+          Group 同時スタート
+        </button>
+      </main>
+    );
+  }
 
   return (
+
     <div className="min-h-screen bg-black text-slate-100 pb-24 overscroll-none">
       <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col xl:flex-row gap-4">
@@ -278,6 +327,12 @@ const t = TEXTS[lang];
 
           <div className="flex flex-col gap-2 self-start hidden xl:flex">
             <button
+              onClick={() => setScreen("home")}
+              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
+            >
+              Home
+            </button>
+            <button
               onClick={addStopwatch}
               className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
             >
@@ -307,6 +362,12 @@ const t = TEXTS[lang];
           </div>
           <div className="fixed bottom-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur border-t border-slate-700 xl:hidden flex">
             <div className="fixed bottom-0 left-0 z-50 grid h-14 w-full grid-cols-4 border-t border-slate-700 bg-slate-900/95 backdrop-blur xl:hidden">
+              <button
+                onClick={() => setScreen("home")}
+                className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
+              >
+                Home
+              </button>
               <button
                 onClick={addStopwatch}
                 className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
