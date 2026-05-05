@@ -522,7 +522,7 @@ export default function App() {
               onClick={cycleGridColumns}
               className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
             >
-              {gridColumns}蛻・
+              {gridColumns}列
             </button>
             {/* <button
               onClick={() => setShowInfo(true)}
