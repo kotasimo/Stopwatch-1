@@ -75,8 +75,15 @@ export const StopwatchCard = ({
   };
 
   const formatTimeText = (ms: number) => {
-    const { minutes, seconds, milliseconds } = formatTime(ms);
-    return `${minutes}'${seconds}"${milliseconds}`;
+    const minutes = Math.floor(ms / 60000);
+
+    const seconds = Math.floor((ms % 60000) / 1000)
+      .toString()
+      .padStart(2, "0");
+
+    const tenths = Math.floor((ms % 1000) / 100);
+
+    return `${minutes}:${seconds}.${tenths}`;
   };
 
   const { minutes, seconds, milliseconds } = formatTime(elapsedTime);
