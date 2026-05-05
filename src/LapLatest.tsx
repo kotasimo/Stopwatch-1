@@ -64,12 +64,12 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
 
   if (variant === "D" || variant === "D2" || variant === "E") {
     return (
-      <div onClick={lapHistory}>
-        <div className="text-4xl">
+      <div className="lap-latest-phone" onClick={lapHistory}>
+        <div className="lap-latest-phone-live">
           {formatLapTimeText(liveLapTime)}
         </div>
 
-        <div className="text-2xl text-slate-400">
+        <div className="lap-latest-phone-last">
           {formatLapTimeText(lastLapTime)}
         </div>
       </div>

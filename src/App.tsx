@@ -425,12 +425,12 @@ export default function App() {
           </div>
         </div>
       )}
-      <div className={`mx-auto w-full max-w-7xl px-4 py-10 ${variant === "C" || variant === "E" ? "pt-20" : ""}`}>
+      <div className={`stopwatch-page-shell mx-auto w-full max-w-7xl py-10 ${variant === "C" || variant === "E" ? "pt-20" : ""}`}>
         <div className="flex flex-col xl:flex-row gap-4">
           <div
             className={
               variant === "D" || variant === "D2" || variant === "E"
-                ? "grid grid-cols-2 gap-2 flex-1"
+                ? "stopwatch-grid-phone grid grid-cols-2 flex-1"
                 : "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1"
             }
           >
@@ -455,19 +455,19 @@ export default function App() {
                   onChangeName={changeName}
                   onStart={
                     variant === "C" || variant === "E"
-                      ? (_id) => startSharedTimer()
+                      ? () => startSharedTimer()
                       : startStopwatch
                   }
 
                   onStop={
                     variant === "C" || variant === "E"
-                      ? (_id) => stopSharedTimer()
+                      ? () => stopSharedTimer()
                       : stopStopwatch
                   }
 
                   onReset={
                     variant === "C" || variant === "E"
-                      ? (_id) => resetSharedTimer()
+                      ? () => resetSharedTimer()
                       : resetStopwatch
                   }
                   onLap={lapStopwatch}

@@ -57,6 +57,9 @@ export const StopwatchCard = ({
   isDragging,
   isNew
 }: StopwatchCardProps) => {
+  const isPhoneTwoColumnVariant =
+    variant === "D" || variant === "D2" || variant === "E";
+
   const formatTime = (ms: number) => {
     const minutes = Math.floor(ms / 1000 / 60)
       .toString()
@@ -85,7 +88,7 @@ export const StopwatchCard = ({
 
   return (
     <div
-      className={`stopwatch-card ${variant === "C" || variant === "E" ? "compact" : ""} ${isDragging ? "dragging" : ""} ${isNew ? "new-card" : ""}`}
+      className={`stopwatch-card ${variant === "C" || variant === "E" ? "compact" : ""} ${isPhoneTwoColumnVariant ? "phone-two-column" : ""} ${isDragging ? "dragging" : ""} ${isNew ? "new-card" : ""}`}
       draggable
       onDragStart={() => onDragStart(stopwatchId)}
       onDragEnter={() => onDragEnter(stopwatchId)}
@@ -94,7 +97,7 @@ export const StopwatchCard = ({
 
     >
       <div className="stopwatch-card-content">
-        <div className="flex items-center gap-1 mb-1">
+        <div className="stopwatch-card-header">
           {/* 左：番号 */}
           {variant !== "D" && variant !== "D2" && variant !== "E" && (
             <div className="text-sm text-slate-400 w-6 text-center shrink-0">
@@ -104,7 +107,7 @@ export const StopwatchCard = ({
 
           <button
             onClick={() => onRemove(stopwatchId)}
-            className="text-xs px-2 py-1 rounded bg-red-500/70"
+            className="stopwatch-icon-button bg-red-500/70"
           >
             ✕
           </button>
@@ -112,7 +115,7 @@ export const StopwatchCard = ({
           <input
             value={name}
             onChange={(e) => onChangeName(stopwatchId, e.target.value)}
-            className="flex-1 min-w-0 name text-xs"
+            className="min-w-0 name text-xs"
             placeholder="name"
           />
 
@@ -120,7 +123,7 @@ export const StopwatchCard = ({
           <div className="flex gap-1 shrink-0">
             <button
               onClick={() => onDuplicate(stopwatchId)}
-              className="text-xs px-2 py-1 rounded bg-blue-500/70"
+              className="stopwatch-icon-button bg-blue-500/70"
             >
               ＋
             </button>
@@ -143,20 +146,20 @@ export const StopwatchCard = ({
             {variant !== "C" && variant !== "D2" && variant !== "E" && (
               <div>
                 {variant === "D" ? (
-                  <div className="flex w-full items-end justify-center font-mono tabular-nums overflow-hidden">
-                    <span className="inline-block w-[2ch] text-center text-4xl font-semibold">
+                  <div className="phone-primary-time">
+                    <span className="phone-primary-time-main">
                       {minutes.toString().padStart(2, "0")}
                     </span>
-                    <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
+                    <span className="phone-primary-time-mark">
                       '
                     </span>
-                    <span className="inline-block w-[2ch] text-center text-4xl font-semibold">
+                    <span className="phone-primary-time-main">
                       {seconds}
                     </span>
-                    <span className="inline-block w-[1ch] pb-3 text-center text-xl text-slate-300">
+                    <span className="phone-primary-time-mark" translate="no">
                       "
                     </span>
-                    <span className="inline-block w-[1ch] text-center text-xl text-slate-200">
+                    <span className="phone-primary-time-sub">
                       {Math.floor(Number(milliseconds) / 100)}
                     </span>
                   </div>
