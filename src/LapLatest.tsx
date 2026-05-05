@@ -19,15 +19,15 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
   const totalTime = latest?.totalTime ?? 0;
 
   const formatLapTimeText = (ms: number) => {
-    const minutes = Math.floor(ms / 1000 / 60);
-    const seconds = Math.floor((ms / 1000) % 60)
+    const minutes = Math.floor(ms / 60000);
+
+    const seconds = Math.floor((ms % 60000) / 1000)
       .toString()
       .padStart(2, "0");
 
-    const centiseconds = Math.floor((ms % 1000) / 10)
-      .toString()
-      .padStart(2, "0");
-    return `${minutes}'${seconds}"${centiseconds}`;
+    const tenths = Math.floor((ms % 1000) / 100);
+
+    return `${minutes}:${seconds}.${tenths}`;
   };
 
   if (variant === "B" || variant === "C") {

@@ -208,17 +208,15 @@ export default function App() {
   };
 
   const formatTimeText = (ms: number) => {
-    const minutes = Math.floor(ms / 1000 / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = Math.floor((ms / 1000) % 60)
-      .toString()
-      .padStart(2, "0");
-    const centiseconds = Math.floor((ms % 1000) / 10)
+    const minutes = Math.floor(ms / 60000);
+
+    const seconds = Math.floor((ms % 60000) / 1000)
       .toString()
       .padStart(2, "0");
 
-    return `${minutes}'${seconds}"${centiseconds}`;
+    const tenths = Math.floor((ms % 1000) / 100);
+
+    return `${minutes}:${seconds}.${tenths}`;
   };
 
   const minutes = Math.floor(sharedElapsedTime / 1000 / 60)
