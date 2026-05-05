@@ -34,6 +34,7 @@ body {
 }
 
 .stopwatch-card {
+  container-type: inline-size;
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -131,7 +132,7 @@ body {
   flex: none;
   width: 100%;
   min-width: 0;
-  padding: clamp(0.7rem, 4vw, 1rem);
+  padding: clamp(0.65rem, 3.2vw, 0.9rem);
   border-radius: clamp(0.85rem, 4vw, 1.25rem);
   gap: clamp(0.25rem, 1.4vw, 0.5rem);
 }
@@ -145,15 +146,17 @@ body {
 
 .lap-latest-phone-live {
   max-width: 100%;
-  overflow-wrap: anywhere;
-  font-size: clamp(1.65rem, 9.8vw, 2.45rem);
+  overflow: hidden;
+  font-size: clamp(1.4rem, 20cqw, 2.1rem);
+  white-space: nowrap;
   color: rgb(248, 250, 252);
 }
 
 .lap-latest-phone-last {
   max-width: 100%;
-  overflow-wrap: anywhere;
-  font-size: clamp(1.15rem, 6.4vw, 1.65rem);
+  overflow: hidden;
+  font-size: clamp(1rem, 14cqw, 1.45rem);
+  white-space: nowrap;
   color: rgb(148, 163, 184);
 }
 
@@ -173,7 +176,7 @@ body {
   display: inline-block;
   width: 2ch;
   text-align: center;
-  font-size: clamp(1.85rem, 10vw, 2.7rem);
+  font-size: clamp(1.6rem, 20cqw, 2.35rem);
   font-weight: 600;
 }
 
@@ -182,7 +185,7 @@ body {
   width: 1ch;
   padding-bottom: 0.45em;
   text-align: center;
-  font-size: clamp(0.95rem, 5vw, 1.35rem);
+  font-size: clamp(0.8rem, 10cqw, 1.2rem);
   color: rgb(203, 213, 225);
 }
 
@@ -190,7 +193,7 @@ body {
   display: inline-block;
   width: 1ch;
   text-align: center;
-  font-size: clamp(0.95rem, 5vw, 1.35rem);
+  font-size: clamp(0.8rem, 10cqw, 1.2rem);
   color: rgb(226, 232, 240);
 }
 
