@@ -32,26 +32,26 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
 
   if (variant === "B" || variant === "C") {
     return (
-      <div>
-        <div className="grid grid-cols-[36px_70px_1fr] grid-rows-[60px_60px] items-center gap-x-1 gap-y-0">
+      <div className="lap-latest-standard">
+        <div className="lap-latest-grid">
 
-          <div className="text-[20px] uppercase tracking-wide text-slate-300">
+          <div className="lap-latest-label text-slate-300">
             LIVE
           </div>
 
-          <div className="row-span-2 self-center text-right text-3xl text-slate-200">
+          <div className="lap-latest-number text-slate-200">
             {lapNumber}
           </div>
 
-          <div className="text-right font-mono tabular-nums text-3xl text-slate-100">
+          <div className="lap-latest-time text-slate-100">
             {formatTimeText(liveLapTime)}
           </div>
 
-          <div className="lap-label text-[20px] uppercase tracking-wide text-slate-300" onClick={lapHistory}>
+          <div className="lap-latest-label lap-label text-slate-300" onClick={lapHistory}>
             LAST
           </div>
 
-          <div className="lap-label text-right font-mono tabular-nums text-3xl text-slate-100" onClick={lapHistory}>
+          <div className="lap-latest-time lap-label text-slate-100" onClick={lapHistory}>
             {formatTimeText(lastLapTime)}
           </div>
 
@@ -77,25 +77,25 @@ export const LapLatest = ({ laps, formatTimeText, lapHistory, variant,
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-[36px_70px_1fr] grid-rows-[60px_60px] items-center gap-x-1 gap-y-0">
-        <div className="text-[20px] uppercase tracking-wide text-slate-300 " translate="no">
+    <div className="lap-latest-standard">
+      <div className="lap-latest-grid">
+        <div className="lap-latest-label text-slate-300" translate="no">
           SPLIT
         </div>
 
-        <div className="row-span-2 self-center text-right text-3xl text-slate-200">
+        <div className="lap-latest-number text-slate-200">
           {lapNumber}
         </div>
 
-        <div className="text-right font-mono tabular-nums text-3xl text-slate-100">
+        <div className="lap-latest-time text-slate-100">
           {formatTimeText(totalTime)}
         </div>
 
-        <div className="lap-label text-[20px] uppercase tracking-wide text-slate-300" onClick={lapHistory} translate="no">
+        <div className="lap-latest-label lap-label text-slate-300" onClick={lapHistory} translate="no">
           LAP
         </div>
 
-        <div className="lap-label text-right font-mono tabular-nums text-3xl text-slate-100" onClick={lapHistory}>
+        <div className="lap-latest-time lap-label text-slate-100" onClick={lapHistory}>
           {formatTimeText(lapTime)}
         </div>
       </div>

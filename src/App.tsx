@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 import { StopwatchCard } from "./stopwatchCard";
 import { LapTable } from "./LapTable";
 import { Analytics } from "@vercel/analytics/react";
@@ -23,6 +23,7 @@ type StopwatchItem = {
 
 type Screen = "home" | "stopwatch";
 type Variant = "A" | "B" | "C" | "D" | "D2" | "E";
+type GridColumns = 2 | 3 | 4;
 
 export default function App() {
   const createStopwatch = (id: number): StopwatchItem => ({
@@ -49,6 +50,7 @@ export default function App() {
   const [showInfo, setShowInfo] = useState(false);
   const [screen, setScreen] = useState<Screen>("home");
   const [variant, setVariant] = useState<Variant>("A");
+  const [gridColumns, setGridColumns] = useState<GridColumns>(2);
   const [sharedElapsedTime, setSharedElapsedTime] = useState(0);
   const [sharedStartedAt, setSharedStartedAt] = useState<number | null>(null);
   const [sharedStatus, setSharedStatus] =
@@ -303,6 +305,14 @@ export default function App() {
   } as const;
 
   const t = TEXTS[lang];
+  const isPhoneGridVariant =
+    variant === "D" || variant === "D2" || variant === "E";
+  const gridStyle = {
+    "--stopwatch-columns": gridColumns,
+  } as CSSProperties;
+  const cycleGridColumns = () => {
+    setGridColumns((current) => (current === 4 ? 2 : ((current + 1) as GridColumns)));
+  };
 
   if (screen === "home") {
     return (
@@ -428,17 +438,14 @@ export default function App() {
       <div className={`stopwatch-page-shell mx-auto w-full max-w-7xl py-10 ${variant === "C" || variant === "E" ? "pt-20" : ""}`}>
         <div className="flex flex-col xl:flex-row gap-4">
           <div
-            className={
-              variant === "D" || variant === "D2" || variant === "E"
-                ? "stopwatch-grid-phone grid grid-cols-2 flex-1"
-                : "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1"
-            }
+            className="stopwatch-grid-phone grid flex-1"
+            style={gridStyle}
           >
             {stopwatches.map((sw, index) => (
               <div
                 key={sw.id}
                 className={
-                  variant === "D" || variant === "D2" || variant === "E"
+                  isPhoneGridVariant
                     ? "w-full"
                     : "w-full max-w-[340px] mx-auto"
                 }
@@ -512,12 +519,18 @@ export default function App() {
               {t.history}
             </button>
             <button
+              onClick={cycleGridColumns}
+              className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold"
+            >
+              {gridColumns}蛻・
+            </button>
+            {/* <button
               onClick={() => setShowInfo(true)}
               className="rounded-full bg-slate-800 px-4 py-2 hover:bg-slate-700 text-sm font-bold "
               translate="no"
             >
               i
-            </button>
+            </button> */}
             <button
               onClick={() => {
                 resetSharedTimer();
@@ -558,13 +571,22 @@ export default function App() {
                 {t.history}
               </button>
 
-              <button
+              
+                <button
+                  onClick={cycleGridColumns}
+                  className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
+                >
+                  {gridColumns}列
+                </button>
+              
+
+              {/* <button
                 onClick={() => setShowInfo(true)}
                 className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
                 translate="no"
               >
                 i
-              </button>
+              </button> */}
 
               <button
                 onClick={() => {

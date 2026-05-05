@@ -26,6 +26,7 @@ body {
 
 .stopwatch-grid-phone {
   gap: clamp(0.5rem, 2.4vw, 0.75rem);
+  grid-template-columns: repeat(var(--stopwatch-columns, 2), minmax(0, 1fr));
   min-width: 0;
 }
 
@@ -36,13 +37,14 @@ body {
 .stopwatch-card {
   container-type: inline-size;
   width: 100%;
-  max-width: 100%;
+  max-width: min(100%, 18.9rem);
   min-width: 0;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: auto;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.07);
   padding: clamp(0.55rem, 2.4vw, 0.75rem);
+  justify-self: center;
 }
 .stopwatch-card.compact {
   aspect-ratio: auto;
@@ -54,19 +56,22 @@ body {
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  height: 100%;
+  height: auto;
 }
 
 .stopwatch-card-header {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  margin-bottom: 0.25rem;
+  gap: min(2cqw, 0.25rem);
+  margin-bottom: min(2cqw, 0.25rem);
   min-width: 0;
 }
 
 .stopwatch-card-header .name {
   flex: 1 1 auto;
+  height: min(9cqw, 30px);
+  margin: min(1.5cqw, 5px);
+  font-size: min(4cqw, 0.75rem);
 }
 
 .stopwatch-icon-button {
@@ -74,20 +79,21 @@ body {
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
+  border-radius: min(2cqw, 0.25rem);
+  padding: min(1.8cqw, 0.25rem) min(3cqw, 0.5rem);
+  font-size: min(4cqw, 0.75rem);
   line-height: 1;
 }
 
 .stopwatch-display-panel {
-  margin-top: 4px;
+  min-width: 0;
+  margin-top: min(1cqw, 2px);
   flex: 0.5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px;
-  border-radius: 16px;
+  padding: min(2.5cqw, 8px) min(5cqw, 16px) min(4cqw, 12px);
+  border-radius: min(5cqw, 16px);
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.1),
@@ -95,46 +101,146 @@ body {
   );
 }
 
+.lap-latest-standard {
+  min-width: 0;
+}
+
+.lap-latest-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 17cqw) minmax(0, 9cqw) minmax(0, 1fr);
+  grid-template-rows: repeat(2, minmax(0, min(19cqw, 62px)));
+  align-items: center;
+  column-gap: min(2cqw, 0.5rem);
+  min-width: 0;
+}
+
+.lap-latest-label {
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  font-size: min(5cqw, 18px);
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.lap-latest-number {
+  grid-row: span 2 / span 2;
+  align-self: center;
+  overflow: hidden;
+  text-align: right;
+  justify-self: end;
+  width: 100%;
+  font-size: min(7cqw, 1.55rem);
+}
+
+.lap-latest-time {
+  min-width: 0;
+  overflow: hidden;
+  text-align: right;
+  padding-right: min(4cqw, 0.75rem);
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: min(12cqw, 2.5rem);
+}
+
+.time-display {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.time-display-main {
+  display: inline-block;
+  width: 2ch;
+  text-align: center;
+  font-size: min(15cqw, 3.75rem);
+  font-weight: 600;
+}
+
+.time-display-mark {
+  display: inline-block;
+  width: 1ch;
+  padding-bottom: 0.34em;
+  text-align: center;
+  font-size: min(7cqw, 1.5rem);
+  color: rgb(203, 213, 225);
+}
+
+.time-display-sub {
+  display: inline-block;
+  width: 3ch;
+  text-align: center;
+  font-size: min(8.5cqw, 1.875rem);
+  color: rgb(226, 232, 240);
+}
+
+.stopwatch-controls-row {
+  min-width: 0;
+}
+
+.stopwatch-controls-row .grid {
+  gap: min(4cqw, 0.75rem);
+  margin-top: min(2cqw, 0.35rem);
+}
+
+.stopwatch-controls-row button {
+  min-width: 0;
+  padding: min(4cqw, 0.75rem) min(5cqw, 1rem);
+  border-radius: min(4cqw, 0.75rem);
+  font-size: min(4.2cqw, 0.875rem);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
 .stopwatch-card.phone-two-column {
   aspect-ratio: auto;
 }
 
 .stopwatch-card.phone-two-column .stopwatch-card-content {
-  gap: clamp(0.45rem, 2.2vw, 0.75rem);
+  gap: min(6cqw, 0.75rem);
 }
 
 .stopwatch-card.phone-two-column .stopwatch-card-header {
   display: grid;
-  grid-template-columns: minmax(1.65rem, 0.28fr) minmax(0, 1fr) minmax(1.65rem, 0.28fr);
-  gap: clamp(0.35rem, 1.8vw, 0.55rem);
+  grid-template-columns: 18cqw minmax(0, 1fr) 18cqw;
+  gap: min(4cqw, 0.55rem);
   margin-bottom: 0;
 }
 
 .stopwatch-card.phone-two-column .stopwatch-card-header .name {
   width: 100%;
-  height: clamp(2.15rem, 8.5vw, 2.75rem);
+  height: min(22cqw, 2.75rem);
   margin: 0;
-  padding-inline: clamp(0.35rem, 2vw, 0.75rem);
-  border-radius: clamp(0.45rem, 2vw, 0.75rem);
-  font-size: clamp(0.75rem, 3.4vw, 0.95rem);
+  padding-inline: min(5cqw, 0.75rem);
+  border-radius: min(6cqw, 0.75rem);
+  font-size: min(8cqw, 0.95rem);
 }
 
 .stopwatch-card.phone-two-column .stopwatch-icon-button {
   width: 100%;
   min-width: 0;
-  min-height: clamp(1.95rem, 7.4vw, 2.4rem);
+  min-height: 0;
+  height: min(20cqw, 2.4rem);
   padding: 0;
-  border-radius: clamp(0.35rem, 1.7vw, 0.5rem);
-  font-size: clamp(0.75rem, 3.2vw, 0.95rem);
+  border-radius: min(4cqw, 0.5rem);
+  font-size: min(8cqw, 0.95rem);
 }
 
 .stopwatch-card.phone-two-column .stopwatch-display-panel {
   flex: none;
   width: 100%;
   min-width: 0;
-  padding: clamp(0.65rem, 3.2vw, 0.9rem);
-  border-radius: clamp(0.85rem, 4vw, 1.25rem);
-  gap: clamp(0.25rem, 1.4vw, 0.5rem);
+  padding: min(8cqw, 0.9rem);
+  border-radius: min(10cqw, 1.25rem);
+  gap: min(3cqw, 0.5rem);
 }
 
 .lap-latest-phone {
@@ -147,7 +253,7 @@ body {
 .lap-latest-phone-live {
   max-width: 100%;
   overflow: hidden;
-  font-size: clamp(1.4rem, 20cqw, 2.1rem);
+  font-size: min(20cqw, 2.1rem);
   white-space: nowrap;
   color: rgb(248, 250, 252);
 }
@@ -155,7 +261,7 @@ body {
 .lap-latest-phone-last {
   max-width: 100%;
   overflow: hidden;
-  font-size: clamp(1rem, 14cqw, 1.45rem);
+  font-size: min(14cqw, 1.45rem);
   white-space: nowrap;
   color: rgb(148, 163, 184);
 }
@@ -176,7 +282,7 @@ body {
   display: inline-block;
   width: 2ch;
   text-align: center;
-  font-size: clamp(1.6rem, 20cqw, 2.35rem);
+  font-size: min(20cqw, 2.35rem);
   font-weight: 600;
 }
 
@@ -185,7 +291,7 @@ body {
   width: 1ch;
   padding-bottom: 0.45em;
   text-align: center;
-  font-size: clamp(0.8rem, 10cqw, 1.2rem);
+  font-size: min(10cqw, 1.2rem);
   color: rgb(203, 213, 225);
 }
 
@@ -193,7 +299,7 @@ body {
   display: inline-block;
   width: 1ch;
   text-align: center;
-  font-size: clamp(0.8rem, 10cqw, 1.2rem);
+  font-size: min(10cqw, 1.2rem);
   color: rgb(226, 232, 240);
 }
 
@@ -203,17 +309,18 @@ body {
 
 .stopwatch-card.phone-two-column .stopwatch-controls-row .grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.45rem, 2.5vw, 0.75rem);
+  gap: min(6cqw, 0.75rem);
   margin-top: 0;
 }
 
 .stopwatch-card.phone-two-column .stopwatch-controls-row button {
   min-width: 0;
   width: 100%;
-  min-height: clamp(2.7rem, 11vw, 3.25rem);
-  padding: clamp(0.55rem, 2.8vw, 0.8rem) clamp(0.35rem, 2vw, 0.75rem);
-  border-radius: clamp(0.75rem, 3.5vw, 1rem);
-  font-size: clamp(0.78rem, 3.7vw, 1rem);
+  min-height: 0;
+  height: min(30cqw, 3.25rem);
+  padding: min(5cqw, 0.8rem) min(4cqw, 0.75rem);
+  border-radius: min(9cqw, 1rem);
+  font-size: min(8cqw, 1rem);
   line-height: 1.1;
   white-space: nowrap;
 }
