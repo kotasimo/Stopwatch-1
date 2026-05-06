@@ -39,6 +39,14 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+.ios-native-app .shared-timer-bar {
+  padding-top: calc(0.75rem + env(safe-area-inset-top));
+}
+
+.ios-native-app .stopwatch-page-shell.has-shared-timer {
+  padding-top: calc(5rem + env(safe-area-inset-top));
+}
+
 .stopwatch-page-shell {
   padding-inline: clamp(0.75rem, 4vw, 1rem);
 }

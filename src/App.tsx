@@ -395,7 +395,7 @@ export default function App() {
 
     <div className="app-screen min-h-screen bg-black text-slate-100 pb-24 overscroll-none">
       {(variant === "C" || variant === "E") && (
-        <div className="fixed top-0 left-0 z-50 w-full bg-slate-950/95 border-b border-slate-700 py-3 font-mono tabular-nums">
+        <div className="shared-timer-bar fixed top-0 left-0 z-50 w-full bg-slate-950/95 border-b border-slate-700 py-3 font-mono tabular-nums">
           <div className="flex items-center justify-center gap-5">
 
             <span className="text-3xl font-bold">
@@ -435,7 +435,7 @@ export default function App() {
           </div>
         </div>
       )}
-      <div className={`stopwatch-page-shell mx-auto w-full max-w-7xl py-10 ${variant === "C" || variant === "E" ? "pt-20" : ""}`}>
+      <div className={`stopwatch-page-shell mx-auto w-full max-w-7xl py-10 ${variant === "C" || variant === "E" ? "has-shared-timer pt-20" : ""}`}>
         <div className="flex flex-col xl:flex-row gap-4">
           <div
             className="stopwatch-grid-phone grid flex-1"
