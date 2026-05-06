@@ -40,7 +40,7 @@ body {
 }
 
 .ios-native-app .stopwatch-page-shell {
-  padding-top: 1rem;
+  padding-top: 0.35rem;
 }
 
 .ios-native-app .shared-timer-bar {
