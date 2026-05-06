@@ -324,12 +324,12 @@ export default function App() {
 
           <div className="grid gap-3">
             {[
-              ["A", "パソコン用-SPLIT Time"],
-              ["B", "パソコン用-LAPのLiveTime"],
-              ["C", "パソコン用-同時スタート"],
-              ["D", "スマホ用(縦)-Bと同じ"],
-              ["D2", "スマホ用(縦)-DからtotalTime表示を抜いた"],
-              ["E", "スマホ用(縦)-Cと同じ"],
+              ["A", "フル-SPLIT Time"],
+              ["B", "フル-LAPのLiveTime"],
+              ["C", "フル-同時スタート"],
+              ["D", "コンパクト-Bと同じ"],
+              ["D2", "コンパクト-DからtotalTime表示を抜いた"],
+              ["E", "コンパクト-Cと同じ"],
             ].map(([value, label]) => (
               <button
                 key={value}
