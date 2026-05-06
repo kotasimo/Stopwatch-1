@@ -44,7 +44,7 @@ body {
 }
 
 .ios-native-app .stopwatch-page-shell.has-shared-timer {
-  padding-top: calc(5rem + env(safe-area-inset-top));
+  padding-top: 5rem;
 }
 
 .stopwatch-page-shell {
