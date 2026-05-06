@@ -32,6 +32,7 @@ body {
 
 .stopwatch-grid-phone > * {
   min-width: 0;
+  justify-self: center;
 }
 
 .stopwatch-card {
