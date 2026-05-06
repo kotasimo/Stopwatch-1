@@ -21,7 +21,7 @@ export const Controls = ({
     statusConf === "running"
       ? "STOP"
       : statusConf === "stopped"
-        ? "RESUME"
+        ? "再開"
         : "START";
 
   const mainHandler = statusConf === "running" ? onStop : onStart;
@@ -41,7 +41,7 @@ export const Controls = ({
     en: {
       start: "START",
       stop: "STOP",
-      resume: "RESUME",
+      resume: "resume",
       lap: "LAP",
       reset: "RESET",
     },
