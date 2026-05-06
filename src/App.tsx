@@ -23,7 +23,7 @@ type StopwatchItem = {
 
 type Screen = "home" | "stopwatch";
 type Variant = "A" | "B" | "C" | "D" | "D2" | "E";
-type GridColumns = 2 | 3 | 4;
+type GridColumns = 1 | 2 | 3 | 4;
 
 export default function App() {
   const createStopwatch = (id: number): StopwatchItem => ({
@@ -311,7 +311,7 @@ export default function App() {
     "--stopwatch-columns": gridColumns,
   } as CSSProperties;
   const cycleGridColumns = () => {
-    setGridColumns((current) => (current === 4 ? 2 : ((current + 1) as GridColumns)));
+    setGridColumns((current) => (current === 4 ? 1 : ((current + 1) as GridColumns)));
   };
 
   if (screen === "home") {
