@@ -20,6 +20,25 @@ body {
   overflow-x: clip;
 }
 
+.ios-native-app body {
+  background: black;
+}
+
+.ios-native-app .app-screen {
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+}
+
+.ios-native-app .mobile-bottom-nav,
+.ios-native-app .mobile-bottom-nav-grid {
+  height: calc(3.5rem + env(safe-area-inset-bottom));
+}
+
+.ios-native-app .mobile-bottom-nav-grid {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 .stopwatch-page-shell {
   padding-inline: clamp(0.75rem, 4vw, 1rem);
 }

@@ -393,7 +393,7 @@ export default function App() {
 
   return (
 
-    <div className="min-h-screen bg-black text-slate-100 pb-24 overscroll-none">
+    <div className="app-screen min-h-screen bg-black text-slate-100 pb-24 overscroll-none">
       {(variant === "C" || variant === "E") && (
         <div className="fixed top-0 left-0 z-50 w-full bg-slate-950/95 border-b border-slate-700 py-3 font-mono tabular-nums">
           <div className="flex items-center justify-center gap-5">
@@ -548,8 +548,8 @@ export default function App() {
               Home
             </button>
           </div>
-          <div className="fixed bottom-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur border-t border-slate-700 xl:hidden flex">
-            <div className="fixed bottom-0 left-0 z-50 grid h-14 w-full grid-cols-5 border-t border-slate-700 bg-slate-900/95 backdrop-blur xl:hidden">
+          <div className="mobile-bottom-nav fixed bottom-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur border-t border-slate-700 xl:hidden flex">
+            <div className="mobile-bottom-nav-grid fixed bottom-0 left-0 z-50 grid h-14 w-full grid-cols-5 border-t border-slate-700 bg-slate-900/95 backdrop-blur xl:hidden">
               <button
                 onClick={addStopwatch}
                 className="h-full w-full text-sm border-r border-slate-700 font-bold text-slate-200 transition-all duration-100 hover:bg-slate-700 active:scale-95 active:bg-slate-700"
